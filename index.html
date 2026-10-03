@@ -1,493 +1,426 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<!DOCTYPE html>
-<html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PORTFOLIO</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Martín Cerdá Diez</title>
+    <meta name="description" content="Portfolio of Martín Cerdá Diez: freelance post-production, 3D and VFX artist. Work for Evian, Pizza Hut, Pringles, ESPN, Amazon Prime Video and Huggies.">
+    <meta name="theme-color" content="#1f1f1f">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Martín Cerdá Diez">
+    <meta property="og:description" content="Post-production, CGI - VFX - Motion Design.">
+
+    <!-- Las fuentes críticas se descargan lo antes posible -->
+    <link rel="preload" href="fonts/bahnschrift.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="fonts/gilroy-regular.woff2" as="font" type="font/woff2" crossorigin>
+
     <style>
-        /* Basic styling */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            background-color: #1f1f1f;
-            color: white;
-            font-family: 'Gilroy', sans-serif;
-            overflow-x: hidden;
-            scroll-behavior: smooth;
-        }
-
-        /* Fonts */
+        /* ---------- Fonts ---------- */
         @font-face {
             font-family: 'Bahnschrift';
             src: url('fonts/bahnschrift.woff2') format('woff2');
-            font-weight: bold;
-            font-style: condensed;
+            font-weight: 700;
+            font-style: normal;
+            font-display: swap;
         }
 
         @font-face {
             font-family: 'Gilroy';
             src: url('fonts/gilroy-regular.woff2') format('woff2'),
-                url('fonts/gilroy-regular.woff') format('woff');
-            font-weight: normal;
+                 url('fonts/gilroy-regular.woff') format('woff');
+            font-weight: 400;
             font-style: normal;
+            font-display: swap;
         }
 
         @font-face {
-            font-family: 'Gilroy-Light';
+            font-family: 'Gilroy';
             src: url('fonts/gilroy-light.woff2') format('woff2'),
-                url('fonts/gilroy-light.woff') format('woff');
+                 url('fonts/gilroy-light.woff') format('woff');
             font-weight: 300;
             font-style: normal;
+            font-display: swap;
         }
 
-        /* Title, Subtitle, and Icons */
-        .title-container {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 2;
-            text-align: center;
-            opacity: 0;
-            animation: fadeIn 2s ease-in-out forwards;
+        /* ---------- Tokens y base ---------- */
+        :root {
+            --bg: #1f1f1f;
+            --surface: #2b2b2b;
+            --text: #fff;
+            --radius: 20px;
+            --gap: clamp(1rem, 2.5vw, 1.5rem);
+            --maxw: 1200px;
+            --font-display: 'Bahnschrift', 'Arial Narrow', sans-serif;
+            --font-body: 'Gilroy', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+            color-scheme: dark;
         }
 
-        @keyframes fadeIn {
-            to {
-                opacity: 1;
-            }
-        }
-
-        h1 {
-            font-size: 6rem;
-            font-family: 'Bahnschrift', sans-serif;
-            font-weight: bold;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            opacity: 0.8;
-            margin-bottom: 5px;
-        }
-
-        .subtitle {
-            font-size: 1.5rem;
-            font-family: 'Gilroy-Light', sans-serif;
-            letter-spacing: 10px;
+        *, *::before, *::after {
             margin: 0;
-        }
-
-        .icons-container {
-            margin-top: 20px;
-        }
-
-        .icons-container img {
-            width: 24px;
-            height: 24px;
-            margin: 0 10px;
-            vertical-align: middle;
-        }
-
-        .portfolio {
-            position: absolute;
-            bottom: 5%;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 1.2rem;
-            letter-spacing: 5px;
-            margin-top: 50px;
-            z-index: 2;
-            text-align: center;
-        }
-
-        /* Fullscreen video */
-        .video-fullscreen {
-            width: 100vw;
-            height: 100vh;
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
-        }
-
-        .video-fullscreen video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        /* Estilos para el título de la sección de videos */
-        .section-title {
-            font-family: 'Bahnschrift', sans-serif;
-            font-size: 3rem;
-            text-align: center;
-            margin-top: 60px;
-            margin-bottom: 30px;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            opacity: 0.8;
-        }
-
-        /* Media query para dispositivos móviles */
-        @media (max-width: 768px) {
-            .section-title {
-                font-size: 2rem; /* Tamaño más pequeño para móviles */
-                margin-top: 40px;
-                margin-bottom: 20px;
-            }
-        }
-
-        /* Vimeo video and bio section */
-        .vimeo-bio-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            padding: 25px;
+            padding: 0;
             box-sizing: border-box;
-            margin: 0 auto;
-            max-width: 90%;
-            background-color: #2b2b2b;
-            border-radius: 20px;
         }
 
-        /* Ajustar el tamaño del video de Vimeo en computadoras */
-        .vimeo-video {
-            position: relative;
-            overflow: hidden;
-            border-radius: 10px;
-            width: 70%; /* Ancho más grande para computadoras */
-            height: 500px; /* Altura fija para computadoras */
-            margin: 0 auto; /* Centrar el contenedor */
-        }
-
-        .vimeo-video iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-            border-radius: 10px;
-        }
-
-        /* Media query para dispositivos móviles */
-        @media (max-width: 768px) {
-            .vimeo-video {
-                width: 100%; /* Ocupar todo el ancho en móviles */
-                height: 300px; /* Altura más pequeña para móviles */
-            }
-        }
-
-        .bio-text {
-            width: 60%;
-            padding: 60px;
-            font-family: 'Bahnschrift', sans-serif;
-            font-size: 1.5rem;
-            line-height: 1.6;
-            color: white;
-            text-align: left;
-            margin-top: 50px;
-            margin-bottom: 50px;
-        }
-
-
-/* Ajustes para pantallas más pequeñas */
-@media (max-width: 768px) {
-    .bio-text {
-        width: 90%; /* Más ancho en móviles */
-        padding: 30px; /* Menos padding para mejor ajuste */
-        font-size: 1.2rem; /* Letra más pequeña */
-        line-height: 1.4;
-    }
-}
-
-@media (max-width: 480px) {
-    .bio-text {
-        width: 95%;
-        padding: 20px;
-        font-size: 1rem; /* Letra aún más pequeña para móviles pequeños */
-        line-height: 1.3;
-    }
-}
-
-
-        /* Video grid section */
-        .video-grid {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-            padding: 20px;
-        }
-
-        .video-section {
-            width: 45%;
-            position: relative;
-            border-radius: 20px;
-            overflow: hidden;
-        }
-
-        .video-section video {
-            width: 100%;
-            height: auto;
-            object-fit: cover;
-            border-radius: 20px;
-        }
-
-        .video-title {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 2rem;
-            z-index: 2;
-            text-shadow: 2px 2px 8px black;
-        }
-
-        .video-title a {
-            color: white;
-            text-decoration: none;
-            target: "_blank";
-        }
-
-        /* Hide video controls */
-        video::-webkit-media-controls,
-        video::-moz-media-controls,
-        video::-ms-media-controls {
-            display: none !important;
-        }
-
-        /* Media query for mobile devices */
-        @media (max-width: 768px) {
-            /* Adjust title, subtitle, and icons for mobile */
-            h1 {
-                font-size: 4rem; /* Smaller font size for mobile */
-            }
-
-            .subtitle {
-                font-size: 1.2rem; /* Smaller font size for mobile */
-                letter-spacing: 5px; /* Reduce letter spacing */
-            }
-
-            .icons-container img {
-                width: 20px; /* Smaller icons for mobile */
-                height: 20px;
-                margin: 0 5px; /* Reduce margin between icons */
-            }
-
-            .portfolio {
-                font-size: 1rem; /* Smaller font size for mobile */
-                text-align: center;
-            }
-
-            /* Stack Vimeo video and bio text in a column */
-            .vimeo-bio-container {
-                flex-direction: column;
-            }
-
-            .vimeo-video,
-            .bio-text {
-                width: 100%; /* Full width on mobile */
-            }
-
-            .vimeo-video {
-                height: 300px; /* Adjust height for mobile */
-            }
-
-            .bio-text {
-                padding: 20px 0; /* Adjust padding for mobile */
-            }
-
-            /* Adjust video grid for mobile */
-            .video-section {
-                width: 100%; /* Full width on mobile */
-                margin: 10px 0; /* Adjust margin for mobile */
-            }
-        }
-
-        /* Elastic scroll effect */
         html {
-            scroll-snap-type: y mandatory;
-            overscroll-behavior: contain;
-            scroll-padding-top: 10px;
+            scroll-behavior: smooth;
+            -webkit-text-size-adjust: 100%;
         }
 
         body {
-            scroll-snap-align: start;
-            overscroll-behavior: none;
+            background: var(--bg);
+            color: var(--text);
+            font: 400 1rem/1.6 var(--font-body);
+            overflow-x: clip;
         }
 
-        /* Estilos para los títulos de las secciones de videos */
-        .video-group-title {
-            font-family: 'Bahnschrift', sans-serif;
-            font-size: 2.5rem;
+        video, img, iframe {
+            display: block;
+            max-width: 100%;
+        }
+
+        :focus-visible {
+            outline: 2px solid var(--text);
+            outline-offset: 3px;
+        }
+
+        /* ---------- Hero ---------- */
+        .hero {
+            position: relative;
+            isolation: isolate;
+            display: grid;
+            place-items: center;
+            min-height: 100vh;
+            min-height: 100svh; /* evita saltos con la barra del navegador en móvil */
+            padding: 1.5rem;
+            overflow: hidden;
             text-align: center;
-            margin-top: 60px;
-            margin-bottom: 20px;
-            letter-spacing: 3px;
+        }
+
+        .hero__video {
+            position: absolute;
+            inset: 0;
+            z-index: -2;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hero::after { /* velo para que el texto siempre se lea sobre el video */
+            content: "";
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+            background: linear-gradient(rgba(0, 0, 0, .3), rgba(0, 0, 0, .5));
+        }
+
+        .hero__content {
+            animation: fadeIn 2s ease-out both;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+        }
+
+        h1 {
+            font-family: var(--font-display);
+            font-size: clamp(2.75rem, 9vw, 6rem);
+            font-weight: 700;
+            line-height: 1.05;
+            letter-spacing: .03em;
             text-transform: uppercase;
-            opacity: 0.8;
+            text-wrap: balance;
+            opacity: .85;
         }
 
-        /* Media query para dispositivos móviles */
-        @media (max-width: 768px) {
-            .video-group-title {
-                font-size: 2rem; /* Tamaño más pequeño para móviles */
-                margin-top: 40px;
-                margin-bottom: 15px;
-            }
+        .subtitle {
+            margin-top: .5rem;
+            font-size: clamp(1rem, 2.4vw, 1.5rem);
+            font-weight: 300;
+            letter-spacing: clamp(.2em, 1.2vw, .4em);
         }
-        /* Estilos para "Contact Me" y el texto siguiente */
-        .contact-section {
+
+        .social {
+            display: flex;
+            justify-content: center;
+            gap: .25rem;
+            margin-top: 1.25rem;
+        }
+
+        .social a {
+            display: grid;
+            place-items: center;
+            width: 44px; /* área táctil mínima recomendada */
+            height: 44px;
+            border-radius: 50%;
+            transition: background-color .2s, transform .2s;
+        }
+
+        .social a:hover,
+        .social a:focus-visible {
+            background: rgba(255, 255, 255, .15);
+            transform: scale(1.1);
+        }
+
+        .social img {
+            width: 24px;
+            height: 24px;
+        }
+
+        .hero__tag {
+            position: absolute;
+            bottom: max(5%, env(safe-area-inset-bottom));
+            left: 0;
+            right: 0;
+            font-size: clamp(.9rem, 1.5vw, 1.2rem);
+            letter-spacing: .3em;
+        }
+
+        /* ---------- Títulos de sección ---------- */
+        .section-title,
+        .group-title {
+            font-family: var(--font-display);
+            font-weight: 700;
             text-align: center;
-            font-family: 'Gilroy-Light', sans-serif;
-            font-size: 1.5rem;
-            margin-top: 50px;
-            margin-bottom: 50px;
-            line-height: 1.6;
+            text-transform: uppercase;
+            letter-spacing: .06em;
+            opacity: .85;
         }
 
-        /* Media query para dispositivos móviles */
-        @media (max-width: 768px) {
-            .contact-section {
-                font-size: 1.2rem; /* Reducir tamaño del texto en móviles */
-                margin-top: 30px;
-                margin-bottom: 30px;
-                line-height: 1.4;
+        .section-title {
+            font-size: clamp(2rem, 5vw, 3rem);
+            margin: clamp(2.5rem, 7vw, 4rem) 1rem 1.5rem;
+        }
+
+        .group-title {
+            font-size: clamp(1.5rem, 3.5vw, 2.5rem);
+            margin: clamp(2rem, 5vw, 3.5rem) 1rem 1rem;
+        }
+
+        /* ---------- About: video + bio ---------- */
+        .about {
+            display: grid;
+            grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+            align-items: center;
+            gap: clamp(1.5rem, 4vw, 3.5rem);
+            width: min(100% - 2rem, var(--maxw));
+            margin: clamp(2rem, 6vw, 4rem) auto 0;
+            padding: clamp(1rem, 3vw, 1.75rem);
+            background: var(--surface);
+            border-radius: var(--radius);
+        }
+
+        .about__video {
+            aspect-ratio: 16 / 9;
+            overflow: hidden;
+            border-radius: 10px;
+            background: #000;
+        }
+
+        .about__video iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        .about__text h2 {
+            margin-bottom: 1rem;
+            font-family: var(--font-display);
+            font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+            text-transform: uppercase;
+            letter-spacing: .06em;
+        }
+
+        .about__text p {
+            max-width: 60ch;
+            font-size: clamp(1rem, 1.6vw, 1.375rem);
+        }
+
+        .about__text p + p {
+            margin-top: .9em;
+        }
+
+        /* ---------- Grid de proyectos ---------- */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
+            gap: var(--gap);
+            width: min(100% - 2rem, var(--maxw));
+            margin-inline: auto;
+        }
+
+        .card {
+            position: relative;
+            aspect-ratio: 16 / 9; /* reserva el espacio y evita saltos de layout */
+            overflow: hidden;
+            border-radius: var(--radius);
+            background: #000;
+        }
+
+        .card video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* El enlace cubre toda la tarjeta: más fácil de pulsar en móvil */
+        .card__link {
+            position: absolute;
+            inset: 0;
+            display: grid;
+            place-items: center;
+            background: rgba(0, 0, 0, .2);
+            color: var(--text);
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            text-decoration: none;
+            text-shadow: 2px 2px 8px #000;
+            transition: background-color .3s;
+        }
+
+        .card__link:hover,
+        .card__link:focus-visible {
+            background: rgba(0, 0, 0, .45);
+        }
+
+        /* ---------- Contacto ---------- */
+        .contact {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: .5rem 2rem;
+            padding: clamp(2.5rem, 6vw, 4rem) 1rem calc(clamp(2.5rem, 6vw, 4rem) + env(safe-area-inset-bottom));
+            font-size: clamp(1rem, 2.2vw, 1.5rem);
+            font-style: normal;
+            font-weight: 300;
+            text-align: center;
+        }
+
+        .contact a {
+            color: inherit;
+            text-decoration: none;
+            border-bottom: 1px solid rgba(255, 255, 255, .3);
+        }
+
+        .contact a:hover,
+        .contact a:focus-visible {
+            border-bottom-color: var(--text);
+        }
+
+        /* ---------- Responsive ---------- */
+        @media (max-width: 860px) {
+            .about {
+                grid-template-columns: 1fr;
             }
         }
 
-        @media (max-width: 480px) {
-            .contact-section {
-                font-size: 1rem; /* Letra aún más pequeña para móviles pequeños */
-                margin-top: 20px;
-                margin-bottom: 20px;
-                line-height: 1.3;
-            }
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            .hero__content { animation: none; }
+            * { transition: none !important; }
         }
     </style>
 </head>
 
 <body>
-    <!-- Title, Subtitle, and Icons -->
-    <div class="title-container">
-        <h1>Martín Cerdá Diez</h1>
-        <div class="subtitle">Image and Sound Designer</div>
-        <div class="icons-container">
-            <a href="https://vimeo.com/martindiez" target="_blank">
-                <img src="icons/d.png" alt="Vimeo"></a>
-            <a href="https://wa.me/+5215656860795" target="_blank">
-                <img src="icons/a.png" alt="WhatsApp"></a>
-            <a href="https://www.linkedin.com/in/martincdiez" target="_blank">
-                <img src="icons/b.png" alt="LinkedIn"></a>
-            <a href="https://www.instagram.com/martindiezz/" target="_blank">
-                <img src="icons/c.png" alt="Instagram"></a>
-        </div>
-    </div>
-
-    <div class="portfolio">PORTFOLIO 2025</div>
-
-    <!-- Fullscreen video -->
-    <section class="video-fullscreen">
-        <video autoplay muted loop playsinline>
+    <header class="hero">
+        <video class="hero__video" autoplay muted loop playsinline aria-hidden="true" tabindex="-1">
             <source src="videos/1.mp4" type="video/mp4">
-            Your browser does not support the video tag.
         </video>
-    </section>
-    <h2 class="section-title"></h2>
-    <!-- Vimeo video and bio section -->
-    <section class="vimeo-bio-container">
-        <div class="vimeo-video">
-<iframe src="https://player.vimeo.com/video/1051460497?background=0&autoplay=0&muted=0&title=0&byline=0&portrait=1&badge=0&controls=1&dnt=1"
-        width="1920" height="1080" frameborder="0"
-        allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media">
-</iframe>
-        </div>
-        <div class="bio-text">
-            <h2>About Me</h2>
-            <p>I'm a freelance post-production specialist, 3D and VFX artist with 10 years of experience in the industry.</p>
-            <p>I studied Image and Sound Design at the University of Buenos Aires and have worked on campaigns for brands such as Evian, Pizza Hut, Pringles, ESPN, Amazon Prime Video, and Huggies, among others.</p>
-            <p>My work combines creativity and technical precision to bring advertising, entertainment, and digital content projects to life.</p>
-            <p>In early 2024, I co-founded TUCO Visual Studio, where I currently work as a post-producer and supervisor.</p>
-        </div>
-    </section>
 
-    <!-- Título de la sección de videos -->
-    <h2 class="section-title">Featured Projects</h2>
+        <div class="hero__content">
+            <h1>Martin Cerdá Diez</h1>
+            <p class="subtitle">Digital Artist - VFX - CGI - Motion Design</p>
+            <nav class="social" aria-label="Social links">
+                <a href="https://vimeo.com/martindiez" target="_blank" rel="noopener noreferrer" aria-label="Vimeo">
+                    <img src="icons/d.png" alt="" width="24" height="24" decoding="async"></a>
+                <a href="https://wa.me/5215656860795" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+                    <img src="icons/a.png" alt="" width="24" height="24" decoding="async"></a>
+                <a href="https://www.linkedin.com/in/martincdiez" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                    <img src="icons/b.png" alt="" width="24" height="24" decoding="async"></a>
+                <a href="https://www.instagram.com/martindiezz/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                    <img src="icons/c.png" alt="" width="24" height="24" decoding="async"></a>
+            </nav>
+        </div>
 
-    <!-- Primer grupo de videos: Commercials -->
-    <h3 class="video-group-title">Commercials</h3>
-    <section class="video-grid">
-        <div class="video-section">
-            <video autoplay muted loop playsinline>
-                <source src="videos/2.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-            <div class="video-title">
-                <a href="https://www.pizzahut.com.mx/" target="_blank">Pizza Hut</a>
+        <p class="hero__tag">PORTFOLIO</p>
+    </header>
+
+    <main>
+        <section class="about" aria-labelledby="about-title">
+            <div class="about__video">
+                <iframe src="https://player.vimeo.com/video/1051460497?dnt=1&title=0&byline=0&portrait=0&badge=0"
+                    title="Featured video by Martín Cerdá Diez" loading="lazy"
+                    allow="fullscreen; picture-in-picture; clipboard-write; encrypted-media" allowfullscreen></iframe>
             </div>
-        </div>
-
-        <div class="video-section">
-            <video autoplay muted loop playsinline>
-                <source src="videos/3.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-            <div class="video-title">
-                <a href="http://www.pringles.com" target="_blank">Pringles</a>
+            <div class="about__text">
+                <h2 id="about-title">About Me</h2>
+                <p>Senior VFX Artist, 3D/CGI Generalist and Motion Designer with 10+ years of experience delivering high-end visual solutions for commercial campaigns, streaming entertainment, broadcast and film (Amazon Prime Video, Telemundo,  adidas, COMPLEX, Huggies, Pizza Hut, Evian). Specialized in photorealistic compositing, CG integration, look development, and procedural motion design across 
+industry-standard pipelines. Adept at operating as an agile remote specialist or leading visual execution within multidisciplinary pipelines for 
+global clients across the US, Latin America, and Europe. </p>
+                <p></p>
+                <p></p>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Segundo grupo de videos: Social Media -->
-    <h3 class="video-group-title">Social Media</h3>
-    <section class="video-grid">
-        <div class="video-section">
-            <video autoplay muted loop playsinline>
-                <source src="videos/4.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-            <div class="video-title">
-                <a href="https://www.bahidora.com/" target="_blank">Bahidora</a>
-            </div>
-        </div>
+        <h2 class="section-title">Featured Projects</h2>
 
-        <div class="video-section">
-            <video autoplay muted loop playsinline>
-                <source src="videos/5.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-            <div class="video-title">
-                <a href="https://www.bijules.me/" target="_blank">Bijules</a>
-            </div>
-        </div>
+        <h3 class="group-title">Commercials</h3>
+        <section class="grid" aria-label="Commercials">
+            <article class="card">
+                <video muted loop playsinline preload="metadata" data-autoplay>
+                    <source src="videos/2.mp4" type="video/mp4">
+                </video>
+                <a class="card__link" href="https://www.pizzahut.com.mx/" target="_blank" rel="noopener noreferrer">Pizza Hut</a>
+            </article>
+            <article class="card">
+                <video muted loop playsinline preload="metadata" data-autoplay>
+                    <source src="videos/3.mp4" type="video/mp4">
+                </video>
+                <a class="card__link" href="https://www.pringles.com" target="_blank" rel="noopener noreferrer">Pringles</a>
+            </article>
+        </section>
 
-    <h2 class="contact-section">+52 1 5656860795 |</h2>
-    <h2 class="contact-section">martincerdadiez@gmail.com</h2>
-    </section>
+        <h3 class="group-title">Social Media</h3>
+        <section class="grid" aria-label="Social media">
+            <article class="card">
+                <video muted loop playsinline preload="metadata" data-autoplay>
+                    <source src="videos/4.mp4" type="video/mp4">
+                </video>
+                <a class="card__link" href="https://www.bahidora.com/" target="_blank" rel="noopener noreferrer">Bahidora</a>
+            </article>
+            <article class="card">
+                <video muted loop playsinline preload="metadata" data-autoplay>
+                    <source src="videos/5.mp4" type="video/mp4">
+                </video>
+                <a class="card__link" href="https://www.bijules.me/" target="_blank" rel="noopener noreferrer">Bijules</a>
+            </article>
+        </section>
+    </main>
+
+    <footer>
+        <address class="contact">
+            <a href="tel:+5215656860795">+52 1 5656860795</a>
+            <a href="mailto:martincerdadiez@gmail.com">martincerdadiez@gmail.com</a>
+        </address>
+    </footer>
 
     <script>
-        // Select all video elements
-        const videos = document.querySelectorAll('.autoplay-video');
+        // Los videos solo se reproducen mientras se ven en pantalla (ahorra CPU, batería y datos).
+        const videos = document.querySelectorAll('.hero__video, video[data-autoplay]');
+        const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-        // Intersection Observer to play videos when they come into view
-        const observer = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.play();  // Play video when in view
-                } else {
-                    entry.target.pause(); // Pause video when out of view
-                }
-            });
-        }, { threshold: 0.5 }); // Play video when 50% visible
+        if (reduceMotion) {
+            videos.forEach(v => { v.removeAttribute('autoplay'); v.pause(); });
+        } else if ('IntersectionObserver' in window) {
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(({ target, isIntersecting }) => {
+                    if (isIntersecting) target.play().catch(() => {});
+                    else target.pause();
+                });
+            }, { threshold: 0.35 });
 
-        // Attach observer to each video
-        videos.forEach(video => {
-            observer.observe(video);
-        });
+            videos.forEach(v => observer.observe(v));
+        }
     </script>
 </body>
 
