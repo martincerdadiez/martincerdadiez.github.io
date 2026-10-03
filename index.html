@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PORTFOLIO</title>
+    <style>
+        /* Basic styling */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #1f1f1f;
+            color: white;
+            font-family: 'Gilroy', sans-serif;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Fonts */
+        @font-face {
+            font-family: 'Bahnschrift';
+            src: url('fonts/bahnschrift.woff2') format('woff2');
+            font-weight: bold;
+            font-style: condensed;
+        }
+
+        @font-face {
+            font-family: 'Gilroy';
+            src: url('fonts/gilroy-regular.woff2') format('woff2'),
+                url('fonts/gilroy-regular.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Gilroy-Light';
+            src: url('fonts/gilroy-light.woff2') format('woff2'),
+                url('fonts/gilroy-light.woff') format('woff');
+            font-weight: 300;
+            font-style: normal;
+        }
+
+        /* Title, Subtitle, and Icons */
+        .title-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 2;
+            text-align: center;
+            opacity: 0;
+            animation: fadeIn 2s ease-in-out forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        h1 {
+            font-size: 6rem;
+            font-family: 'Bahnschrift', sans-serif;
+            font-weight: bold;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            opacity: 0.8;
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            font-family: 'Gilroy-Light', sans-serif;
+            letter-spacing: 10px;
+            margin: 0;
+        }
+
+        .icons-container {
+            margin-top: 20px;
+        }
+
+        .icons-container img {
+            width: 24px;
+            height: 24px;
+            margin: 0 10px;
+            vertical-align: middle;
+        }
+
+        .portfolio {
+            position: absolute;
+            bottom: 5%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.2rem;
+            letter-spacing: 5px;
+            margin-top: 50px;
+            z-index: 2;
+            text-align: center;
+        }
+
+        /* Fullscreen video */
+        .video-fullscreen {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .video-fullscreen video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Estilos para el título de la sección de videos */
+        .section-title {
+            font-family: 'Bahnschrift', sans-serif;
+            font-size: 3rem;
+            text-align: center;
+            margin-top: 60px;
+            margin-bottom: 30px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            opacity: 0.8;
+        }
+
+        /* Media query para dispositivos móviles */
+        @media (max-width: 768px) {
+            .section-title {
+                font-size: 2rem; /* Tamaño más pequeño para móviles */
+                margin-top: 40px;
+                margin-bottom: 20px;
+            }
+        }
+
+        /* Vimeo video and bio section */
+        .vimeo-bio-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 25px;
+            box-sizing: border-box;
+            margin: 0 auto;
+            max-width: 90%;
+            background-color: #2b2b2b;
+            border-radius: 20px;
+        }
+
+        /* Ajustar el tamaño del video de Vimeo en computadoras */
+        .vimeo-video {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            width: 70%; /* Ancho más grande para computadoras */
+            height: 500px; /* Altura fija para computadoras */
+            margin: 0 auto; /* Centrar el contenedor */
+        }
+
+        .vimeo-video iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 10px;
+        }
+
+        /* Media query para dispositivos móviles */
+        @media (max-width: 768px) {
+            .vimeo-video {
+                width: 100%; /* Ocupar todo el ancho en móviles */
+                height: 300px; /* Altura más pequeña para móviles */
+            }
+        }
+
+        .bio-text {
+            width: 60%;
+            padding: 60px;
+            font-family: 'Bahnschrift', sans-serif;
+            font-size: 1.5rem;
+            line-height: 1.6;
+            color: white;
+            text-align: left;
+            margin-top: 50px;
+            margin-bottom: 50px;
+        }
+
+
+/* Ajustes para pantallas más pequeñas */
+@media (max-width: 768px) {
+    .bio-text {
+        width: 90%; /* Más ancho en móviles */
+        padding: 30px; /* Menos padding para mejor ajuste */
+        font-size: 1.2rem; /* Letra más pequeña */
+        line-height: 1.4;
+    }
+}
+
+@media (max-width: 480px) {
+    .bio-text {
+        width: 95%;
+        padding: 20px;
+        font-size: 1rem; /* Letra aún más pequeña para móviles pequeños */
+        line-height: 1.3;
+    }
+}
+
+
+        /* Video grid section */
+        .video-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .video-section {
+            width: 45%;
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .video-section video {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            border-radius: 20px;
+        }
+
+        .video-title {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2rem;
+            z-index: 2;
+            text-shadow: 2px 2px 8px black;
+        }
+
+        .video-title a {
+            color: white;
+            text-decoration: none;
+            target: "_blank";
+        }
+
+        /* Hide video controls */
+        video::-webkit-media-controls,
+        video::-moz-media-controls,
+        video::-ms-media-controls {
+            display: none !important;
+        }
+
+        /* Media query for mobile devices */
+        @media (max-width: 768px) {
+            /* Adjust title, subtitle, and icons for mobile */
+            h1 {
+                font-size: 4rem; /* Smaller font size for mobile */
+            }
+
+            .subtitle {
+                font-size: 1.2rem; /* Smaller font size for mobile */
+                letter-spacing: 5px; /* Reduce letter spacing */
+            }
+
+            .icons-container img {
+                width: 20px; /* Smaller icons for mobile */
+                height: 20px;
+                margin: 0 5px; /* Reduce margin between icons */
+            }
+
+            .portfolio {
+                font-size: 1rem; /* Smaller font size for mobile */
+                text-align: center;
+            }
+
+            /* Stack Vimeo video and bio text in a column */
+            .vimeo-bio-container {
+                flex-direction: column;
+            }
+
+            .vimeo-video,
+            .bio-text {
+                width: 100%; /* Full width on mobile */
+            }
+
+            .vimeo-video {
+                height: 300px; /* Adjust height for mobile */
+            }
+
+            .bio-text {
+                padding: 20px 0; /* Adjust padding for mobile */
+            }
+
+            /* Adjust video grid for mobile */
+            .video-section {
+                width: 100%; /* Full width on mobile */
+                margin: 10px 0; /* Adjust margin for mobile */
+            }
+        }
+
+        /* Elastic scroll effect */
+        html {
+            scroll-snap-type: y mandatory;
+            overscroll-behavior: contain;
+            scroll-padding-top: 10px;
+        }
+
+        body {
+            scroll-snap-align: start;
+            overscroll-behavior: none;
+        }
+
+        /* Estilos para los títulos de las secciones de videos */
+        .video-group-title {
+            font-family: 'Bahnschrift', sans-serif;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-top: 60px;
+            margin-bottom: 20px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            opacity: 0.8;
+        }
+
+        /* Media query para dispositivos móviles */
+        @media (max-width: 768px) {
+            .video-group-title {
+                font-size: 2rem; /* Tamaño más pequeño para móviles */
+                margin-top: 40px;
+                margin-bottom: 15px;
+            }
+        }
+        /* Estilos para "Contact Me" y el texto siguiente */
+        .contact-section {
+            text-align: center;
+            font-family: 'Gilroy-Light', sans-serif;
+            font-size: 1.5rem;
+            margin-top: 50px;
+            margin-bottom: 50px;
+            line-height: 1.6;
+        }
+
+        /* Media query para dispositivos móviles */
+        @media (max-width: 768px) {
+            .contact-section {
+                font-size: 1.2rem; /* Reducir tamaño del texto en móviles */
+                margin-top: 30px;
+                margin-bottom: 30px;
+                line-height: 1.4;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .contact-section {
+                font-size: 1rem; /* Letra aún más pequeña para móviles pequeños */
+                margin-top: 20px;
+                margin-bottom: 20px;
+                line-height: 1.3;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Title, Subtitle, and Icons -->
+    <div class="title-container">
+        <h1>Martín Cerdá Diez</h1>
+        <div class="subtitle">Image and Sound Designer</div>
+        <div class="icons-container">
+            <a href="https://vimeo.com/martindiez" target="_blank">
+                <img src="icons/d.png" alt="Vimeo"></a>
+            <a href="https://wa.me/+5215656860795" target="_blank">
+                <img src="icons/a.png" alt="WhatsApp"></a>
+            <a href="https://www.linkedin.com/in/martincdiez" target="_blank">
+                <img src="icons/b.png" alt="LinkedIn"></a>
+            <a href="https://www.instagram.com/martindiezz/" target="_blank">
+                <img src="icons/c.png" alt="Instagram"></a>
+        </div>
+    </div>
+
+    <div class="portfolio">PORTFOLIO 2025</div>
+
+    <!-- Fullscreen video -->
+    <section class="video-fullscreen">
+        <video autoplay muted loop playsinline>
+            <source src="videos/1.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </section>
+    <h2 class="section-title"></h2>
+    <!-- Vimeo video and bio section -->
+    <section class="vimeo-bio-container">
+        <div class="vimeo-video">
+<iframe src="https://player.vimeo.com/video/1051460497?background=0&autoplay=0&muted=0&title=0&byline=0&portrait=1&badge=0&controls=1&dnt=1"
+        width="1920" height="1080" frameborder="0"
+        allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media">
+</iframe>
+        </div>
+        <div class="bio-text">
+            <h2>About Me</h2>
+            <p>I'm a freelance post-production specialist, 3D and VFX artist with 10 years of experience in the industry.</p>
+            <p>I studied Image and Sound Design at the University of Buenos Aires and have worked on campaigns for brands such as Evian, Pizza Hut, Pringles, ESPN, Amazon Prime Video, and Huggies, among others.</p>
+            <p>My work combines creativity and technical precision to bring advertising, entertainment, and digital content projects to life.</p>
+            <p>In early 2024, I co-founded TUCO Visual Studio, where I currently work as a post-producer and supervisor.</p>
+        </div>
+    </section>
+
+    <!-- Título de la sección de videos -->
+    <h2 class="section-title">Featured Projects</h2>
+
+    <!-- Primer grupo de videos: Commercials -->
+    <h3 class="video-group-title">Commercials</h3>
+    <section class="video-grid">
+        <div class="video-section">
+            <video autoplay muted loop playsinline>
+                <source src="videos/2.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="video-title">
+                <a href="https://www.pizzahut.com.mx/" target="_blank">Pizza Hut</a>
+            </div>
+        </div>
+
+        <div class="video-section">
+            <video autoplay muted loop playsinline>
+                <source src="videos/3.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="video-title">
+                <a href="http://www.pringles.com" target="_blank">Pringles</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Segundo grupo de videos: Social Media -->
+    <h3 class="video-group-title">Social Media</h3>
+    <section class="video-grid">
+        <div class="video-section">
+            <video autoplay muted loop playsinline>
+                <source src="videos/4.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="video-title">
+                <a href="https://www.bahidora.com/" target="_blank">Bahidora</a>
+            </div>
+        </div>
+
+        <div class="video-section">
+            <video autoplay muted loop playsinline>
+                <source src="videos/5.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="video-title">
+                <a href="https://www.bijules.me/" target="_blank">Bijules</a>
+            </div>
+        </div>
+
+    <h2 class="contact-section">+52 1 5656860795 |</h2>
+    <h2 class="contact-section">martincerdadiez@gmail.com</h2>
+    </section>
+
+    <script>
+        // Select all video elements
+        const videos = document.querySelectorAll('.autoplay-video');
+
+        // Intersection Observer to play videos when they come into view
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.play();  // Play video when in view
+                } else {
+                    entry.target.pause(); // Pause video when out of view
+                }
+            });
+        }, { threshold: 0.5 }); // Play video when 50% visible
+
+        // Attach observer to each video
+        videos.forEach(video => {
+            observer.observe(video);
+        });
+    </script>
+</body>
+
+</html>
