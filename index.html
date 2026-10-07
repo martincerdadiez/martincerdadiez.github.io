@@ -9,37 +9,33 @@
     <meta name="theme-color" content="#1f1f1f">
     <meta property="og:type" content="website">
     <meta property="og:title" content="Martín Cerdá Diez">
-    <meta property="og:description" content="Post-production, CGI - VFX - Motion Design.">
+    <meta property="og:description" content="Digital Artist - VFX - CGI - Motion Design.">
+    <!-- TODO: añadir <meta property="og:image" content="URL_ABSOLUTA"> y <link rel="icon"> -->
 
     <!-- Las fuentes críticas se descargan lo antes posible -->
     <link rel="preload" href="fonts/bahnschrift.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="fonts/gilroy-regular.woff2" as="font" type="font/woff2" crossorigin>
 
     <style>
-        /* ---------- Fonts ---------- */
+        /* ---------- Fonts (woff2 es suficiente en todos los navegadores actuales) ---------- */
         @font-face {
             font-family: 'Bahnschrift';
             src: url('fonts/bahnschrift.woff2') format('woff2');
             font-weight: 700;
-            font-style: normal;
             font-display: swap;
         }
 
         @font-face {
             font-family: 'Gilroy';
-            src: url('fonts/gilroy-regular.woff2') format('woff2'),
-                 url('fonts/gilroy-regular.woff') format('woff');
+            src: url('fonts/gilroy-regular.woff2') format('woff2');
             font-weight: 400;
-            font-style: normal;
             font-display: swap;
         }
 
         @font-face {
             font-family: 'Gilroy';
-            src: url('fonts/gilroy-light.woff2') format('woff2'),
-                 url('fonts/gilroy-light.woff') format('woff');
+            src: url('fonts/gilroy-light.woff2') format('woff2');
             font-weight: 300;
-            font-style: normal;
             font-display: swap;
         }
 
@@ -176,7 +172,7 @@
             letter-spacing: .3em;
         }
 
-        /* ---------- Títulos de sección ---------- */
+        /* ---------- Títulos ---------- */
         .section-title,
         .group-title {
             font-family: var(--font-display);
@@ -236,11 +232,7 @@
             font-size: clamp(1rem, 1.6vw, 1.375rem);
         }
 
-        .about__text p + p {
-            margin-top: .9em;
-        }
-
-        /* ---------- Grid de proyectos ---------- */
+        /* ---------- Grid de proyectos y tarjetas ---------- */
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
@@ -249,37 +241,27 @@
             margin-inline: auto;
         }
 
-        .card {
-            position: relative;
-            aspect-ratio: 16 / 9; /* reserva el espacio y evita saltos de layout */
-            overflow: hidden;
-            border-radius: var(--radius);
-            background: #000;
-        }
-
         .card video {
             width: 100%;
-            height: 100%;
+            aspect-ratio: 16 / 9;
             object-fit: cover;
+            background: #000; /* placeholder mientras carga */
+            border-radius: var(--radius);
         }
 
-        /* El enlace cubre toda la tarjeta: más fácil de pulsar en móvil */
         .card__link {
-            position: absolute;
-            inset: 0;
-            display: grid;
-            place-items: center;
-            background: rgba(0, 0, 0, .2);
-            color: var(--text);
-            font-size: clamp(1.5rem, 3vw, 2rem);
+            display: block;
+            margin-top: 1rem;
+            color: inherit;
+            text-align: center;
             text-decoration: none;
-            text-shadow: 2px 2px 8px #000;
-            transition: background-color .3s;
+            font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+            transition: opacity .3s;
         }
 
         .card__link:hover,
         .card__link:focus-visible {
-            background: rgba(0, 0, 0, .45);
+            opacity: .7;
         }
 
         /* ---------- Contacto ---------- */
@@ -308,9 +290,7 @@
 
         /* ---------- Responsive ---------- */
         @media (max-width: 860px) {
-            .about {
-                grid-template-columns: 1fr;
-            }
+            .about { grid-template-columns: 1fr; }
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -323,22 +303,20 @@
 
 <body>
     <header class="hero">
-        <video class="hero__video" autoplay muted loop playsinline aria-hidden="true" tabindex="-1">
-            <source src="videos/1.mp4" type="video/mp4">
-        </video>
+        <video class="hero__video" src="videos/1.mp4" autoplay muted loop playsinline aria-hidden="true" tabindex="-1"></video>
 
         <div class="hero__content">
-            <h1>Martin Cerdá Diez</h1>
-            <p class="subtitle">Digital Artist - VFX - CGI - Motion Design</p>
+            <h1>Martín Cerdá Diez</h1>
+            <p class="subtitle">VFX - CGI - Motion Design</p>
             <nav class="social" aria-label="Social links">
-                <a href="https://vimeo.com/martindiez" target="_blank" rel="noopener noreferrer" aria-label="Vimeo">
-                    <img src="icons/d.png" alt="" width="24" height="24" decoding="async"></a>
+
+                <a href="https://www.instagram.com/martindiezz/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                    <img src="icons/c.png" alt="" width="24" height="24" decoding="async"></a>
                 <a href="https://wa.me/5215656860795" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
                     <img src="icons/a.png" alt="" width="24" height="24" decoding="async"></a>
                 <a href="https://www.linkedin.com/in/martincdiez" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
                     <img src="icons/b.png" alt="" width="24" height="24" decoding="async"></a>
-                <a href="https://www.instagram.com/martindiezz/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-                    <img src="icons/c.png" alt="" width="24" height="24" decoding="async"></a>
+
             </nav>
         </div>
 
@@ -354,46 +332,102 @@
             </div>
             <div class="about__text">
                 <h2 id="about-title">About Me</h2>
-                <p>Senior VFX Artist, 3D/CGI Generalist and Motion Designer with 10+ years of experience delivering high-end visual solutions for commercial campaigns, streaming entertainment, broadcast and film (Amazon Prime Video, Telemundo,  adidas, COMPLEX, Huggies, Pizza Hut, Evian). Specialized in photorealistic compositing, CG integration, look development, and procedural motion design across 
-industry-standard pipelines. Adept at operating as an agile remote specialist or leading visual execution within multidisciplinary pipelines for 
-global clients across the US, Latin America, and Europe. </p>
-                <p></p>
-                <p></p>
+                <p>Senior VFX Artist, 3D/CGI Generalist and Motion Designer with 10+ years of experience delivering high-end visual solutions for commercial campaigns, streaming entertainment, broadcast and film (Amazon Prime Video, Telemundo, adidas, COMPLEX, Huggies, Pizza Hut, Evian). Specialized in photorealistic compositing, CG integration, look development, and procedural motion design across industry-standard pipelines. Adept at operating as an agile remote specialist or leading visual execution within multidisciplinary pipelines for global clients across the US, Latin America, and Europe.</p>
             </div>
         </section>
 
         <h2 class="section-title">Featured Projects</h2>
 
-        <h3 class="group-title">Commercials</h3>
-        <section class="grid" aria-label="Commercials">
-            <article class="card">
-                <video muted loop playsinline preload="metadata" data-autoplay>
-                    <source src="videos/2.mp4" type="video/mp4">
-                </video>
-                <a class="card__link" href="https://www.pizzahut.com.mx/" target="_blank" rel="noopener noreferrer">Pizza Hut</a>
-            </article>
-            <article class="card">
-                <video muted loop playsinline preload="metadata" data-autoplay>
-                    <source src="videos/3.mp4" type="video/mp4">
-                </video>
-                <a class="card__link" href="https://www.pringles.com" target="_blank" rel="noopener noreferrer">Pringles</a>
-            </article>
+        <section aria-labelledby="g-commercials">
+            <h3 class="group-title" id="g-commercials">Commercials</h3>
+            <div class="grid">
+                <article class="card">
+                    <video src="videos/2.mp4" muted loop playsinline preload="metadata"></video>
+                    <a class="card__link" href="https://www.pizzahut.com/" target="_blank" rel="noopener noreferrer">Pizza Hut</a>
+                </article>
+                <article class="card">
+                    <video src="videos/Adidas_Metalbone_.mp4" muted loop playsinline preload="metadata"></video>
+                    <a class="card__link" href="https://www.adidas.com" target="_blank" rel="noopener noreferrer">adidas</a>
+                </article>
+                <article class="card">
+                    <video src="videos/essence.mp4" muted loop playsinline preload="metadata"></video>
+                    <a class="card__link" href="https://www.essencefestival.com/" target="_blank" rel="noopener noreferrer">ESSENCE Festival of Culture® 2025</a>
+                </article>
+                <article class="card">
+                    <video src="videos/3.mp4" muted loop playsinline preload="metadata"></video>
+                    <a class="card__link" href="https://www.pringles.com" target="_blank" rel="noopener noreferrer">Pringles</a>
+                </article>
+            </div>
         </section>
 
-        <h3 class="group-title">Social Media</h3>
-        <section class="grid" aria-label="Social media">
-            <article class="card">
-                <video muted loop playsinline preload="metadata" data-autoplay>
-                    <source src="videos/4.mp4" type="video/mp4">
-                </video>
-                <a class="card__link" href="https://www.bahidora.com/" target="_blank" rel="noopener noreferrer">Bahidora</a>
-            </article>
-            <article class="card">
-                <video muted loop playsinline preload="metadata" data-autoplay>
-                    <source src="videos/5.mp4" type="video/mp4">
-                </video>
-                <a class="card__link" href="https://www.bijules.me/" target="_blank" rel="noopener noreferrer">Bijules</a>
-            </article>
+
+        <section aria-labelledby="g-short">
+            <h3 class="group-title" id="g-short">Short Films</h3>
+            <div class="grid">
+                <article class="card">
+                    <video src="videos/BIOSUITS_.mp4" muted loop playsinline preload="metadata"></video>
+                    <a class="card__link"" target="_blank" rel="noopener noreferrer">Biosuits</a>
+                </article>
+                <article class="card">
+                    <video src="videos/killbag.mp4" muted loop playsinline preload="metadata"></video>
+                    <a class="card__link"" target="_blank" rel="noopener noreferrer">Kill Bag</a>
+                </article>
+            </div>
+        </section>
+
+        <section aria-labelledby="g-music">
+            <h3 class="group-title" id="g-music">Music Videos</h3>
+            <div class="grid">
+                <article class="card">
+                    <video src="videos/tiffany.mp4" muted loop playsinline preload="metadata"></video>
+                    <a class="card__link" href="https://www.youtube.com/watch?v=OSFJO9Qp5x8" target="_blank" rel="noopener noreferrer">Tiffany Stringer</a>
+                </article>
+                <article class="card">
+                    <video src="videos/matisse.mp4" muted loop playsinline preload="metadata"></video>
+                    <a class="card__link" href="https://www.youtube.com/watch?v=4Zpw5wCGTDo" target="_blank" rel="noopener noreferrer">Matisse</a>
+                </article>
+            </div>
+        </section>
+
+
+        <section aria-labelledby="g-social">
+            <h3 class="group-title" id="g-social">Social Media</h3>
+            <div class="grid">
+                <article class="card">
+                    <video src="videos/somosoro.mp4" muted loop playsinline preload="metadata"></video>
+                    <!-- TODO: enlace de Bahidora en "Somos Oro" -->
+                    <a class="card__link" href="https://www.instagram.com/reels/DBB67OwID4g/" target="_blank" rel="noopener noreferrer">Somos Oro</a>
+                </article>
+                <article class="card">
+                    <video src="videos/complexcon.mp4" muted loop playsinline preload="metadata"></video>
+                    <!-- TODO: enlace de bijules.me en "ComplexCon" -->
+                    <a class="card__link" href="https://www.complexcon.com/" target="_blank" rel="noopener noreferrer">ComplexCon</a>
+                </article>
+                <article class="card">
+                    <video src="videos/chubbies.mp4" muted loop playsinline preload="metadata"></video>
+                    <!-- TODO: enlace de bijules.me en "Chubbies" -->
+                    <a class="card__link" href="https://www.instagram.com/gkittle/reel/DQKmcLpDpZi/" target="_blank" rel="noopener noreferrer">Chubbies</a>
+                </article>
+                <article class="card">
+                    <video src="videos/4.mp4" muted loop playsinline preload="metadata"></video>
+                    <a class="card__link" href="https://www.bahidora.com/" target="_blank" rel="noopener noreferrer">Bahidora</a>
+                </article>
+            </div>
+        </section>
+
+
+        <section aria-labelledby="g-realestate">
+            <h3 class="group-title" id="g-realestate">Real Estate</h3>
+            <div class="grid">
+                <article class="card">
+                    <video src="videos/moderno_.mp4" muted loop playsinline preload="metadata"></video>
+                    <a class="card__link" href="http://www.modernodev.com/" target="_blank" rel="noopener noreferrer">Moderno</a>
+                </article>
+                <article class="card">
+                    <video src="videos/edgehouse.mp4" muted loop playsinline preload="metadata"></video>
+                    <a class="card__link" href="https://edgehousemiami.com/" target="_blank" rel="noopener noreferrer">Edge House Miami</a>
+                </article>
+            </div>
         </section>
     </main>
 
@@ -406,20 +440,23 @@ global clients across the US, Latin America, and Europe. </p>
 
     <script>
         // Los videos solo se reproducen mientras se ven en pantalla (ahorra CPU, batería y datos).
-        const videos = document.querySelectorAll('.hero__video, video[data-autoplay]');
-        const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const videos = document.querySelectorAll('video');
+        const play = v => v.play().catch(() => {});
 
-        if (reduceMotion) {
-            videos.forEach(v => { v.removeAttribute('autoplay'); v.pause(); });
+        if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            // Sin autoplay: los videos de proyectos muestran controles para poder verlos manualmente.
+            videos.forEach(v => {
+                v.removeAttribute('autoplay');
+                v.pause();
+                v.controls = !v.classList.contains('hero__video');
+            });
         } else if ('IntersectionObserver' in window) {
             const observer = new IntersectionObserver(entries => {
-                entries.forEach(({ target, isIntersecting }) => {
-                    if (isIntersecting) target.play().catch(() => {});
-                    else target.pause();
-                });
+                entries.forEach(({ target, isIntersecting }) => isIntersecting ? play(target) : target.pause());
             }, { threshold: 0.35 });
-
             videos.forEach(v => observer.observe(v));
+        } else {
+            videos.forEach(play);
         }
     </script>
 </body>

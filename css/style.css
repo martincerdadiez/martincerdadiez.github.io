@@ -80,3 +80,51 @@ html {
 body {
     overscroll-behavior: none;
 }
+
+/* --- Estilos para la cuadrícula y las tarjetas --- */
+
+.grid {
+    display: flex;
+    flex-direction: column; /* Apila las tarjetas verticalmente */
+    align-items: center;
+    gap: 80px; /* Espacio de separación entre cada video (con su texto) */
+    width: 100%;
+    padding: 40px 0;
+}
+
+.card {
+            display: flex;
+            flex-direction: column;
+            /* Se eliminó el aspect-ratio fijo y el overflow: hidden de la tarjeta principal */
+            background: transparent;
+        }
+
+        .card video {
+            width: 100%;
+            aspect-ratio: 16 / 9; /* Movemos el aspect-ratio directo al video */
+            object-fit: cover;
+            border-radius: var(--radius); /* Le damos los bordes redondos al video */
+        }
+
+        /* El enlace ahora se sitúa naturalmente debajo del video */
+        .card__link,
+        .card__link:visited,
+        .card__link:active {
+            position: static !important;
+            display: block !important;
+            margin-top: 15px !important; 
+            background: transparent !important;
+            color: var(--text) !important; /* Fuerza el color blanco original */
+            text-decoration: none !important; /* Fuerza a quitar el subrayado SIEMPRE */
+            font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+            text-align: center;
+            text-shadow: none !important;
+            transition: opacity .3s ease;
+        }
+
+        .card__link:hover,
+        .card__link:focus-visible {
+            color: var(--text) !important;
+            text-decoration: none !important; /* Evita que se subraye al pasar el mouse */
+            opacity: 0.7; /* Un efecto sutil y elegante al pasar el mouse */
+        }
