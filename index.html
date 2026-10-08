@@ -249,7 +249,8 @@
             border-radius: var(--radius);
         }
 
-        .card__link {
+        .card__link,
+        .card__caption {
             display: block;
             margin-top: 1rem;
             color: inherit;
@@ -366,11 +367,12 @@
             <div class="grid">
                 <article class="card">
                     <video src="videos/BIOSUITS_.mp4" muted loop playsinline preload="metadata"></video>
-                    <a class="card__link"" target="_blank" rel="noopener noreferrer">Biosuits</a>
+                    <!-- TODO: cuando haya enlace, cambiar <p> por <a class="card__link" href="..." target="_blank" rel="noopener noreferrer"> -->
+                    <p class="card__caption">Biosuits</p>
                 </article>
                 <article class="card">
                     <video src="videos/killbag.mp4" muted loop playsinline preload="metadata"></video>
-                    <a class="card__link"" target="_blank" rel="noopener noreferrer">Kill Bag</a>
+                    <p class="card__caption">Kill Bag</p>
                 </article>
             </div>
         </section>
@@ -395,17 +397,14 @@
             <div class="grid">
                 <article class="card">
                     <video src="videos/somosoro.mp4" muted loop playsinline preload="metadata"></video>
-                    <!-- TODO: enlace de Bahidora en "Somos Oro" -->
                     <a class="card__link" href="https://www.instagram.com/reels/DBB67OwID4g/" target="_blank" rel="noopener noreferrer">Somos Oro</a>
                 </article>
                 <article class="card">
                     <video src="videos/complexcon.mp4" muted loop playsinline preload="metadata"></video>
-                    <!-- TODO: enlace de bijules.me en "ComplexCon" -->
                     <a class="card__link" href="https://www.complexcon.com/" target="_blank" rel="noopener noreferrer">ComplexCon</a>
                 </article>
                 <article class="card">
                     <video src="videos/chubbies.mp4" muted loop playsinline preload="metadata"></video>
-                    <!-- TODO: enlace de bijules.me en "Chubbies" -->
                     <a class="card__link" href="https://www.instagram.com/gkittle/reel/DQKmcLpDpZi/" target="_blank" rel="noopener noreferrer">Chubbies</a>
                 </article>
                 <article class="card">
@@ -442,6 +441,9 @@
         // Los videos solo se reproducen mientras se ven en pantalla (ahorra CPU, batería y datos).
         const videos = document.querySelectorAll('video');
         const play = v => v.play().catch(() => {});
+
+        // Diagnóstico: en la consola (F12) aparece el archivo exacto que no se pudo cargar.
+        videos.forEach(v => v.addEventListener('error', () => console.warn('Video no disponible:', v.currentSrc || v.src), true));
 
         if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
             // Sin autoplay: los videos de proyectos muestran controles para poder verlos manualmente.
