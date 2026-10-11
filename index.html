@@ -265,6 +265,109 @@
             opacity: .7;
         }
 
+        /* ---------- Miniatura que se expande al hacer click ---------- */
+        .card__open {
+            display: block;
+            width: 100%;
+            border: 0;
+            border-radius: var(--radius); /* el anillo de foco sigue la forma del video */
+            background: none;
+            color: inherit;
+            font: inherit;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+        }
+
+        /* ---------- Video expandido (lightbox) ---------- */
+        .lightbox {
+            --lb-width: 60vw;  /* ancho del video en escritorio */
+            --lb-dim: .75;     /* opacidad del fondo negro */
+            inset: 0;
+            width: auto;
+            height: auto;
+            max-width: none;
+            max-height: none;
+            margin: 0;
+            padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+            border: 0;
+            background: rgba(0, 0, 0, var(--lb-dim));
+            color: var(--text);
+            overflow: auto;
+            overscroll-behavior: contain;
+        }
+
+        .lightbox[open] {
+            display: grid;
+        }
+
+        .lightbox::backdrop {
+            background: transparent; /* el oscurecido lo da el propio .lightbox */
+        }
+
+        /* Bloquea el scroll de la página mientras el video está abierto, sin que el contenido "salte" */
+        html:has(.lightbox[open]) {
+            overflow: hidden;
+            scrollbar-gutter: stable;
+        }
+
+        .lightbox__stage {
+            margin: auto; /* centra en ambos ejes y, si no cabe, deja hacer scroll */
+            /* Nunca más ancho que --lb-width ni más alto que la pantalla (reserva 10rem para el texto) */
+            width: min(var(--lb-width), calc((100vh - 10rem) * 16 / 9));
+            width: min(var(--lb-width), calc((100svh - 10rem) * 16 / 9));
+        }
+
+        .lightbox__video {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            object-fit: contain;
+            background: #000;
+            border-radius: var(--radius);
+            transform-origin: 0 0; /* la animación de expansión parte de la esquina */
+        }
+
+        .lightbox__info {
+            margin-top: 1.25rem;
+            padding-inline: .5rem;
+            text-align: center;
+            text-wrap: balance;
+        }
+
+        .lightbox__info p {
+            font-size: clamp(.95rem, 1.5vw, 1.125rem);
+            font-weight: 300;
+            opacity: .8;
+        }
+
+        .lightbox__info p:first-child {
+            font-size: clamp(1.1rem, 2.2vw, 1.5rem);
+            font-weight: 400;
+            opacity: 1;
+        }
+
+        .lightbox__close {
+            position: fixed;
+            top: max(.75rem, env(safe-area-inset-top));
+            right: max(.75rem, env(safe-area-inset-right));
+            display: grid;
+            place-items: center;
+            width: 44px;
+            height: 44px;
+            border: 0;
+            border-radius: 50%;
+            background: transparent;
+            color: var(--text);
+            cursor: pointer;
+            transition: background-color .2s, transform .2s;
+        }
+
+        .lightbox__close:hover,
+        .lightbox__close:focus-visible {
+            background: rgba(255, 255, 255, .15);
+            transform: scale(1.1);
+        }
+
         /* ---------- Contacto ---------- */
         .contact {
             display: flex;
@@ -292,6 +395,7 @@
         /* ---------- Responsive ---------- */
         @media (max-width: 860px) {
             .about { grid-template-columns: 1fr; }
+            .lightbox { --lb-width: 92vw; } /* en móvil, 60% quedaría demasiado pequeño */
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -347,21 +451,53 @@
         <section aria-labelledby="g-commercials">
             <h3 class="group-title" id="g-commercials">Commercials</h3>
             <div class="grid">
-                <article class="card">
-                    <video src="videos/2.mp4" muted loop playsinline preload="metadata"></video>
+                <article class="card" data-full-src="videos/commercials/1A.mp4">
+                    <button class="card__open" type="button" aria-label="Expand Pizza Hut video">
+                        <video src="videos/commercials/1.mp4" muted loop playsinline preload="metadata"></video>
+                    </button>
                     <a class="card__link" href="https://www.pizzahut.com/" target="_blank" rel="noopener noreferrer">Pizza Hut</a>
+                    <!-- Texto que aparece debajo del video expandido -->
+                    <div class="card__details" hidden>
+                        <p>Pizza Hut - My Box | 2024</p>
+                        <p>Prod: Gato.tv | Post: TUCO</p>
+                        <p>Motion Graphics design and compositing, post-production assistant</p>
+                    </div>
                 </article>
-                <article class="card">
-                    <video src="videos/Adidas_Metalbone_.mp4" muted loop playsinline preload="metadata"></video>
-                    <a class="card__link" href="https://www.adidas.com" target="_blank" rel="noopener noreferrer">adidas</a>
+                <article class="card" data-full-src="videos/commercials/2A.mp4">
+                    <button class="card__open" type="button" aria-label="Expand Adidas video">
+                        <video src="videos/commercials/2.mp4" muted loop playsinline preload="metadata"></video>
+                    </button>
+                    <a class="card__link" href="https://www.adidas.com/" target="_blank" rel="noopener noreferrer">adidas</a>
+                    <!-- Texto que aparece debajo del video expandido -->
+                    <div class="card__details" hidden>
+                        <p>adidas - Metalbone | 2025</p>
+                        <p>Prod: Hittch Media | Post: TUCO</p>
+                        <p>CGI Motion design, animated graphics design and compositing.</p>
+                    </div>
                 </article>
-                <article class="card">
-                    <video src="videos/essence.mp4" muted loop playsinline preload="metadata"></video>
+                <article class="card" data-full-src="videos/commercials/3A.mp4">
+                    <button class="card__open" type="button" aria-label="Expand Essence video">
+                        <video src="videos/commercials/3.mp4" muted loop playsinline preload="metadata"></video>
+                    </button>
                     <a class="card__link" href="https://www.essencefestival.com/" target="_blank" rel="noopener noreferrer">ESSENCE Festival of Culture® 2025</a>
+                    <!-- Texto que aparece debajo del video expandido -->
+                    <div class="card__details" hidden>
+                        <p>ESSENCE Festival of Culture® 2025 | 2025</p>
+                        <p>Prod: Hittch Media | Post: TUCO</p>
+                        <p>VFX, chroma key, compositing, post-production assistant</p>
+                    </div>
                 </article>
-                <article class="card">
-                    <video src="videos/3.mp4" muted loop playsinline preload="metadata"></video>
-                    <a class="card__link" href="https://www.pringles.com" target="_blank" rel="noopener noreferrer">Pringles</a>
+                <article class="card" data-full-src="videos/commercials/4A.mp4">
+                    <button class="card__open" type="button" aria-label="Expand Pringles video">
+                        <video src="videos/commercials/4.mp4" muted loop playsinline preload="metadata"></video>
+                    </button>
+                    <a class="card__link" href="https://www.pringles.com/" target="_blank" rel="noopener noreferrer">Pringles</a>
+                    <!-- Texto que aparece debajo del video expandido -->
+                    <div class="card__details" hidden>
+                        <p>Pringles Diamond | 2024</p>
+                        <p>Prod: Gato.tv | Post: TUCO</p>
+                        <p>VFX, cleanup, motion graophics design and compositing.</p>
+                    </div>
                 </article>
             </div>
         </section>
@@ -430,9 +566,22 @@
         </address>
     </footer>
 
+    <!-- Video expandido: se llena desde la tarjeta que se toca (data-full-src + .card__details) -->
+    <dialog class="lightbox" id="lightbox" aria-label="Expanded video">
+        <button class="lightbox__close" type="button" aria-label="Close video">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
+                <path d="M6 6l12 12M18 6L6 18" />
+            </svg>
+        </button>
+        <figure class="lightbox__stage">
+            <video class="lightbox__video" controls playsinline></video>
+            <figcaption class="lightbox__info"></figcaption>
+        </figure>
+    </dialog>
+
     <script>
         // Los videos solo se reproducen mientras se ven en pantalla (ahorra CPU, batería y datos).
-        const videos = document.querySelectorAll('video');
+        const videos = document.querySelectorAll('video:not(.lightbox__video)');
         const play = v => v.play().catch(() => {});
 
         // Diagnóstico: en la consola (F12) aparece el archivo exacto que no se pudo cargar.
@@ -443,7 +592,7 @@
             videos.forEach(v => {
                 v.removeAttribute('autoplay');
                 v.pause();
-                v.controls = !v.classList.contains('hero__video');
+                v.controls = !v.classList.contains('hero__video') && !v.closest('.card__open');
             });
         } else if ('IntersectionObserver' in window) {
             const observer = new IntersectionObserver(entries => {
@@ -452,6 +601,105 @@
             videos.forEach(v => observer.observe(v));
         } else {
             videos.forEach(play);
+        }
+
+        // ---------- Video expandido (lightbox) ----------
+        // Cada tarjeta con data-full-src + .card__details y un .card__open se expande al hacer click.
+        const lightbox = document.getElementById('lightbox');
+
+        if (lightbox && typeof lightbox.showModal === 'function') {
+            const player = lightbox.querySelector('.lightbox__video');
+            const info = lightbox.querySelector('.lightbox__info');
+            const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)');
+            const EASE = 'cubic-bezier(.2, .8, .2, 1)';
+            let thumb = null;       // miniatura de la que se abrió (para volver a ella al cerrar)
+            let running = [];       // animaciones en curso
+            let closing = false;
+            let pressedOnBackdrop = false;
+
+            player.addEventListener('error', () => player.getAttribute('src') && console.warn('Video no disponible:', player.currentSrc || player.src));
+
+            const animate = (el, keyframes, options) => {
+                const a = el.animate(keyframes, options);
+                running.push(a);
+                return a.finished.catch(() => {});
+            };
+
+            const clearAnimations = () => {
+                running.forEach(a => a.cancel());
+                running = [];
+            };
+
+            // Transformación que hace coincidir el video grande con la posición/tamaño de la miniatura
+            const toThumb = (big, small) =>
+                `translate(${small.left - big.left}px, ${small.top - big.top}px) scale(${small.width / big.width}, ${small.height / big.height})`;
+
+            const openLightbox = trigger => {
+                if (lightbox.open) return;
+                const card = trigger.closest('.card');
+                const details = card.querySelector('.card__details');
+                thumb = trigger.querySelector('video');
+
+                info.replaceChildren(...details.cloneNode(true).children);
+                lightbox.setAttribute('aria-label', details.firstElementChild.textContent);
+                player.src = card.dataset.fullSrc;
+                thumb.pause(); // evita dos videos reproduciéndose a la vez
+
+                lightbox.showModal();
+                play(player); // el click cuenta como interacción, así que puede reproducirse con sonido
+
+                if (reduceMotion.matches) return;
+                const small = thumb.getBoundingClientRect();
+                const big = player.getBoundingClientRect();
+                animate(player, [{ transform: toThumb(big, small) }, { transform: 'none' }], { duration: 450, easing: EASE });
+                animate(lightbox, [{ opacity: 0 }, { opacity: 1 }], { duration: 300, easing: 'ease-out' });
+                animate(info, [{ opacity: 0 }, { opacity: 1 }], { duration: 300, delay: 200, easing: 'ease-out', fill: 'backwards' });
+            };
+
+            const closeLightbox = async () => {
+                if (closing || !lightbox.open) return;
+                closing = true;
+                player.pause();
+
+                if (!reduceMotion.matches && thumb && thumb.isConnected) {
+                    clearAnimations();
+                    const big = player.getBoundingClientRect();
+                    const small = thumb.getBoundingClientRect();
+                    const out = { duration: 350, easing: EASE, fill: 'forwards' };
+                    await Promise.all([
+                        animate(player, [{ transform: 'none' }, { transform: toThumb(big, small) }], out),
+                        animate(lightbox, [{ opacity: 1 }, { opacity: 0 }], { ...out, easing: 'ease-in' }),
+                        animate(info, [{ opacity: 1 }, { opacity: 0 }], { ...out, duration: 150 })
+                    ]);
+                }
+                lightbox.close();
+            };
+
+            // Se dispara siempre que se cierra (botón, Esc, fondo...): limpia y libera el video grande
+            lightbox.addEventListener('close', () => {
+                clearAnimations();
+                player.removeAttribute('src');
+                player.load();
+                info.replaceChildren();
+                closing = false;
+                if (thumb && !reduceMotion.matches) play(thumb);
+            });
+
+            // Esc: pasa por closeLightbox para que se vea la animación de cierre
+            lightbox.addEventListener('cancel', e => {
+                e.preventDefault();
+                closeLightbox();
+            });
+
+            lightbox.querySelector('.lightbox__close').addEventListener('click', closeLightbox);
+
+            // Click fuera del video cierra, pero no si el gesto empezó dentro (p. ej. arrastrar la barra de progreso)
+            lightbox.addEventListener('pointerdown', e => { pressedOnBackdrop = e.target === lightbox; });
+            lightbox.addEventListener('click', e => {
+                if (e.target === lightbox && pressedOnBackdrop) closeLightbox();
+            });
+
+            document.querySelectorAll('.card__open').forEach(btn => btn.addEventListener('click', () => openLightbox(btn)));
         }
     </script>
 </body>
