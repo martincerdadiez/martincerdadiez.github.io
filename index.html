@@ -207,6 +207,7 @@
         }
 
         .about__video {
+            position: relative;
             aspect-ratio: 16 / 9;
             overflow: hidden;
             border-radius: 10px;
@@ -218,6 +219,63 @@
             height: 100%;
             border: 0;
         }
+
+        /* Capa clicable sobre el video: click = play / pausa */
+        .about__video-click {
+            position: absolute;
+            inset: 0;
+            cursor: pointer;
+        }
+
+        /* Controles propios: solo play/pausa y audio on/off */
+        .about__controls {
+            position: absolute;
+            left: .75rem;
+            bottom: .75rem;
+            display: flex;
+            gap: .5rem;
+            opacity: 0;
+            transition: opacity .2s;
+        }
+
+        .about__video:hover .about__controls,
+        .about__video:focus-within .about__controls,
+        .about__video.is-paused .about__controls {
+            opacity: 1;
+        }
+
+        @media (hover: none) {
+            .about__controls { opacity: 1; } /* en pantallas táctiles no hay hover */
+        }
+
+        .about__btn {
+            display: grid;
+            place-items: center;
+            width: 2.5rem;
+            height: 2.5rem;
+            padding: 0;
+            border: 0;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, .55);
+            color: #fff;
+            cursor: pointer;
+            transition: background .2s;
+        }
+
+        .about__btn:hover { background: rgba(0, 0, 0, .8); }
+        .about__btn:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+
+        .about__btn svg {
+            width: 1.25rem;
+            height: 1.25rem;
+            fill: currentColor;
+        }
+
+        /* Cada botón muestra un icono según su estado */
+        .about__btn[data-state="playing"] .ico-play,
+        .about__btn[data-state="paused"] .ico-pause,
+        .about__btn[data-state="on"] .ico-muted,
+        .about__btn[data-state="muted"] .ico-sound { display: none; }
 
         .about__text h2 {
             margin-bottom: 1rem;
@@ -435,10 +493,25 @@
 
     <main>
         <section class="about" aria-labelledby="about-title">
-            <div class="about__video">
-                <iframe src="https://player.vimeo.com/video/1051460497?dnt=1&title=0&byline=0&portrait=0&badge=0"
-                    title="Featured video by Martín Cerdá Diez" loading="lazy"
-                    allow="fullscreen; picture-in-picture; clipboard-write; encrypted-media" allowfullscreen></iframe>
+            <div class="about__video is-paused" id="about-video">
+                <iframe id="about-player"
+                    src="https://player.vimeo.com/video/1235172623?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&amp;title=0&amp;byline=0&amp;portrait=0&amp;controls=0&amp;dnt=1"
+                    title="Martin Cerdá Diez | Demo Reel" loading="lazy"
+                    allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+                <div class="about__video-click" aria-hidden="true"></div>
+
+                <div class="about__controls">
+                    <button class="about__btn" type="button" data-action="play" data-state="paused" aria-label="Play">
+                        <svg class="ico-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
+                        <svg class="ico-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h4v14H6zm8 0h4v14h-4z" /></svg>
+                    </button>
+                    <button class="about__btn" type="button" data-action="mute" data-state="on" aria-label="Mute">
+                        <svg class="ico-sound" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4z" /></svg>
+                        <svg class="ico-muted" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9v6h4l5 5V4L7 9H3z" /><path d="M16 9.5l5 5m0-5l-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" /></svg>
+                    </button>
+                </div>
             </div>
             <div class="about__text">
                 <h2 id="about-title">About Me</h2>
@@ -701,6 +774,56 @@
 
             document.querySelectorAll('.card__open').forEach(btn => btn.addEventListener('click', () => openLightbox(btn)));
         }
+    </script>
+
+    <!-- Demo reel de la sección About: controles propios (solo play/pausa y audio) sobre el player de Vimeo -->
+    <script src="https://player.vimeo.com/api/player.js"></script>
+    <script>
+        (() => {
+            const box = document.getElementById('about-video');
+            const iframe = document.getElementById('about-player');
+            if (!box || !iframe) return;
+
+            // Si la API de Vimeo no carga (bloqueador, sin red...), se vuelve a los controles nativos
+            // para que el video siga pudiendo reproducirse.
+            if (!window.Vimeo) {
+                iframe.src = iframe.src.replace('controls=0', 'controls=1');
+                box.querySelector('.about__video-click').hidden = true;
+                box.querySelector('.about__controls').hidden = true;
+                return;
+            }
+
+            const vimeo = new Vimeo.Player(iframe);
+            const playBtn = box.querySelector('[data-action="play"]');
+            const muteBtn = box.querySelector('[data-action="mute"]');
+
+            const setPlaying = playing => {
+                playBtn.dataset.state = playing ? 'playing' : 'paused';
+                playBtn.setAttribute('aria-label', playing ? 'Pause' : 'Play');
+                box.classList.toggle('is-paused', !playing);
+            };
+
+            const setMuted = muted => {
+                muteBtn.dataset.state = muted ? 'muted' : 'on';
+                muteBtn.setAttribute('aria-label', muted ? 'Unmute' : 'Mute');
+            };
+
+            const togglePlay = async () => (await vimeo.getPaused()) ? vimeo.play() : vimeo.pause();
+
+            vimeo.on('play', () => setPlaying(true));
+            vimeo.on('pause', () => setPlaying(false));
+            vimeo.on('ended', () => setPlaying(false));
+            vimeo.ready().then(() => vimeo.getMuted()).then(setMuted).catch(() => {});
+
+            playBtn.addEventListener('click', togglePlay);
+            box.querySelector('.about__video-click').addEventListener('click', togglePlay);
+
+            muteBtn.addEventListener('click', async () => {
+                const muted = !(await vimeo.getMuted());
+                await vimeo.setMuted(muted);
+                setMuted(muted);
+            });
+        })();
     </script>
 </body>
 
