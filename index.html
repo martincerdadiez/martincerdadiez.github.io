@@ -174,7 +174,8 @@
 
         /* ---------- Títulos ---------- */
         .section-title,
-        .group-title {
+        .group-title,
+        .card__heading {
             font-family: var(--font-display);
             font-weight: 700;
             text-align: center;
@@ -191,6 +192,13 @@
         .group-title {
             font-size: clamp(1.5rem, 3.5vw, 2.5rem);
             margin: clamp(2rem, 5vw, 3.5rem) 1rem 1rem;
+        }
+
+        /* Título sobre un video (Demo Reel) */
+        .card__heading {
+            margin-bottom: .75rem;
+            font-size: clamp(1rem, 1.9vw, 1.5rem);
+            text-wrap: balance;
         }
 
         /* ---------- About: video + bio ---------- */
@@ -385,6 +393,14 @@
             transform-origin: 0 0; /* la animación de expansión parte de la esquina */
         }
 
+        /* Variante sin texto (Demo Reel): video centrado cubriendo el 85% de la pantalla */
+        .lightbox--plain .lightbox__stage {
+            width: min(85vw, calc(85vh * 16 / 9));
+            width: min(85vw, calc(85svh * 16 / 9));
+        }
+
+        .lightbox--plain .lightbox__info { display: none; }
+
         .lightbox__info {
             margin-top: 1.25rem;
             padding-inline: .5rem;
@@ -519,8 +535,27 @@
             </div>
         </section>
 
-        <h2 class="section-title">Featured Projects</h2>
+        <h2 class="section-title">DEMO REEL</h2>
+        <section aria-label="Demo reel videos">
+            <div class="grid">
+                <!-- Miniatura = *prev.mp4; al expandir se abre el video completo (data-full-src).
+                     Sin .card__details: el video expandido se muestra solo, centrado y al 85% de la pantalla -->
+                <article class="card" data-full-src="videos/motion.mp4" data-label="Motion Design - CG / 3D Animation">
+                    <h3 class="card__heading">MOTION DESIGN - CG / 3D ANIMATION</h3>
+                    <button class="card__open" type="button" aria-label="Expand Motion Design reel video">
+                        <video src="videos/motionprev.mp4" muted loop playsinline preload="metadata"></video>
+                    </button>
+                </article>
+                <article class="card" data-full-src="videos/vfx.mp4" data-label="VFX - CGI - Compositing">
+                    <h3 class="card__heading">VFX - CGI - COMPOSITING</h3>
+                    <button class="card__open" type="button" aria-label="Expand VFX reel video">
+                        <video src="videos/vfxprev.mp4" muted loop playsinline preload="metadata"></video>
+                    </button>
+                </article>
+            </div>
+        </section>
 
+        <h2 class="section-title">Featured Projects</h2>
         <section aria-labelledby="g-commercials">
             <h3 class="group-title" id="g-commercials">Commercials</h3>
             <div class="grid">
@@ -725,8 +760,10 @@
                 const details = card.querySelector('.card__details');
                 thumb = trigger.querySelector('video');
 
-                info.replaceChildren(...details.cloneNode(true).children);
-                lightbox.setAttribute('aria-label', details.firstElementChild.textContent);
+                // Con texto (.card__details) se muestra debajo; sin texto, el video va solo, centrado y al 85%
+                lightbox.classList.toggle('lightbox--plain', !details);
+                info.replaceChildren(...(details ? details.cloneNode(true).children : []));
+                lightbox.setAttribute('aria-label', details ? details.firstElementChild.textContent : (card.dataset.label || 'Expanded video'));
                 player.src = card.dataset.fullSrc;
                 thumb.pause(); // evita dos videos reproduciéndose a la vez
 
@@ -766,6 +803,7 @@
                 player.removeAttribute('src');
                 player.load();
                 info.replaceChildren();
+                lightbox.classList.remove('lightbox--plain');
                 closing = false;
                 if (thumb && !reduceMotion.matches) play(thumb);
             });
