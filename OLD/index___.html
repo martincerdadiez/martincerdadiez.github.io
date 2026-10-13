@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Martín Cerdá Diez</title>
+    <meta name="description" content="Portfolio of Martín Cerdá Diez: freelance post-production, 3D and VFX artist. Work for Evian, Pizza Hut, Pringles, ESPN, Amazon Prime Video and Huggies.">
+    <meta name="theme-color" content="#1f1f1f">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Martín Cerdá Diez">
+    <meta property="og:description" content="Digital Artist - VFX - CGI - Motion Design.">
+    <!-- TODO: añadir <meta property="og:image" content="URL_ABSOLUTA"> y <link rel="icon"> -->
+
+    <!-- Las fuentes críticas se descargan lo antes posible -->
+    <link rel="preload" href="fonts/bahnschrift.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="fonts/gilroy-regular.woff2" as="font" type="font/woff2" crossorigin>
+
+    <style>
+        /* ---------- Fonts (woff2 es suficiente en todos los navegadores actuales) ---------- */
+        @font-face {
+            font-family: 'Bahnschrift';
+            src: url('fonts/bahnschrift.woff2') format('woff2');
+            font-weight: 700;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'Gilroy';
+            src: url('fonts/gilroy-regular.woff2') format('woff2');
+            font-weight: 400;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'Gilroy';
+            src: url('fonts/gilroy-light.woff2') format('woff2');
+            font-weight: 300;
+            font-display: swap;
+        }
+
+        /* ---------- Tokens y base ---------- */
+        :root {
+            --bg: #1f1f1f;
+            --surface: #2b2b2b;
+            --text: #fff;
+            --radius: 20px;
+            --gap: clamp(1rem, 2.5vw, 1.5rem);
+            --maxw: 1200px;
+            --font-display: 'Bahnschrift', 'Arial Narrow', sans-serif;
+            --font-body: 'Gilroy', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+            color-scheme: dark;
+        }
+
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font: 400 1rem/1.6 var(--font-body);
+            overflow-x: clip;
+        }
+
+        video, img, iframe {
+            display: block;
+            max-width: 100%;
+        }
+
+        :focus-visible {
+            outline: 2px solid var(--text);
+            outline-offset: 3px;
+        }
+
+        /* ---------- Hero ---------- */
+        .hero {
+            position: relative;
+            isolation: isolate;
+            display: grid;
+            place-items: center;
+            min-height: 100vh;
+            min-height: 100svh; /* evita saltos con la barra del navegador en móvil */
+            padding: 1.5rem;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .hero__video {
+            position: absolute;
+            inset: 0;
+            z-index: -2;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hero::after { /* velo para que el texto siempre se lea sobre el video */
+            content: "";
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+            background: linear-gradient(rgba(0, 0, 0, .3), rgba(0, 0, 0, .5));
+        }
+
+        .hero__content {
+            animation: fadeIn 2s ease-out both;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+        }
+
+        h1 {
+            font-family: var(--font-display);
+            font-size: clamp(2.75rem, 9vw, 6rem);
+            font-weight: 700;
+            line-height: 1.05;
+            letter-spacing: .03em;
+            text-transform: uppercase;
+            text-wrap: balance;
+            opacity: .85;
+        }
+
+        .subtitle {
+            margin-top: .5rem;
+            font-size: clamp(1rem, 2.4vw, 1.5rem);
+            font-weight: 300;
+            letter-spacing: clamp(.2em, 1.2vw, .4em);
+        }
+
+        .social {
+            display: flex;
+            justify-content: center;
+            gap: .25rem;
+            margin-top: 1.25rem;
+        }
+
+        .social a {
+            display: grid;
+            place-items: center;
+            width: 44px; /* área táctil mínima recomendada */
+            height: 44px;
+            border-radius: 50%;
+            transition: background-color .2s, transform .2s;
+        }
+
+        .social a:hover,
+        .social a:focus-visible {
+            background: rgba(255, 255, 255, .15);
+            transform: scale(1.1);
+        }
+
+        .social img {
+            width: 24px;
+            height: 24px;
+        }
+
+        .hero__tag {
+            position: absolute;
+            bottom: max(5%, env(safe-area-inset-bottom));
+            left: 0;
+            right: 0;
+            font-size: clamp(.9rem, 1.5vw, 1.2rem);
+            letter-spacing: .3em;
+        }
+
+        /* ---------- Títulos ---------- */
+        .section-title,
+        .group-title,
+        .card__heading {
+            font-family: var(--font-display);
+            font-weight: 700;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: .06em;
+            opacity: .85;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 5vw, 3rem);
+            margin: clamp(2.5rem, 7vw, 4rem) 1rem 1.5rem;
+        }
+
+        .group-title {
+            font-size: clamp(1.5rem, 3.5vw, 2.5rem);
+            margin: clamp(2rem, 5vw, 3.5rem) 1rem 1rem;
+        }
+
+        /* Título sobre un video (Demo Reel) */
+        .card__heading {
+            margin-bottom: .75rem;
+            font-size: clamp(1rem, 1.9vw, 1.5rem);
+            text-wrap: balance;
+        }
+
+        /* ---------- About: video + bio ---------- */
+        /* Panel gris que abarca About Me + Demo Reel */
+        .panel {
+            width: min(100% - 2rem, var(--maxw));
+            margin: clamp(2rem, 6vw, 4rem) auto 0;
+            padding: clamp(1rem, 3vw, 1.75rem);
+            background: var(--surface);
+            border-radius: var(--radius);
+        }
+
+        .panel .section-title {
+            margin: clamp(2rem, 5vw, 3rem) 0 1.25rem;
+        }
+
+        .panel .grid {
+            width: 100%; /* el panel ya limita el ancho */
+        }
+
+        .about {
+            display: grid;
+            grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+            align-items: center;
+            gap: clamp(1.5rem, 4vw, 3.5rem);
+        }
+
+        .about__video {
+            position: relative;
+            aspect-ratio: 16 / 9;
+            overflow: hidden;
+            border-radius: 10px;
+            background: #000;
+        }
+
+        .about__video iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* Capa clicable sobre el video: click = play / pausa */
+        .about__video-click {
+            position: absolute;
+            inset: 0;
+            cursor: pointer;
+        }
+
+        /* Controles propios: solo play/pausa y audio on/off */
+        .about__controls {
+            position: absolute;
+            left: .75rem;
+            bottom: .75rem;
+            display: flex;
+            gap: .5rem;
+            opacity: 0;
+            transition: opacity .2s;
+        }
+
+        .about__video:hover .about__controls,
+        .about__video:focus-within .about__controls,
+        .about__video.is-paused .about__controls {
+            opacity: 1;
+        }
+
+        @media (hover: none) {
+            .about__controls { opacity: 1; } /* en pantallas táctiles no hay hover */
+        }
+
+        .about__btn {
+            display: grid;
+            place-items: center;
+            width: 2.5rem;
+            height: 2.5rem;
+            padding: 0;
+            border: 0;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, .55);
+            color: #fff;
+            cursor: pointer;
+            transition: background .2s;
+        }
+
+        .about__btn:hover { background: rgba(0, 0, 0, .8); }
+        .about__btn:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+
+        .about__btn svg {
+            width: 1.25rem;
+            height: 1.25rem;
+            fill: currentColor;
+        }
+
+        /* Cada botón muestra un icono según su estado */
+        .about__btn[data-state="playing"] .ico-play,
+        .about__btn[data-state="paused"] .ico-pause,
+        .about__btn[data-state="on"] .ico-muted,
+        .about__btn[data-state="muted"] .ico-sound { display: none; }
+
+        .about__text h2 {
+            margin-bottom: 1rem;
+            font-family: var(--font-display);
+            font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+            text-transform: uppercase;
+            letter-spacing: .06em;
+        }
+
+        .about__text p {
+            max-width: 60ch;
+            font-size: clamp(1rem, 1.6vw, 1.375rem);
+        }
+
+        /* ---------- Grid de proyectos y tarjetas ---------- */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
+            gap: var(--gap);
+            width: min(100% - 2rem, var(--maxw));
+            margin-inline: auto;
+        }
+
+        .card video {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            object-fit: cover;
+            background: #000; /* placeholder mientras carga */
+            border-radius: var(--radius);
+        }
+
+        .card__link,
+        .card__caption {
+            display: block;
+            margin-top: 1rem;
+            color: inherit;
+            text-align: center;
+            text-decoration: none;
+            font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+            transition: opacity .3s;
+        }
+
+        .card__link:hover,
+        .card__link:focus-visible {
+            opacity: .7;
+        }
+
+        /* ---------- Miniatura que se expande al hacer click ---------- */
+        .card__open {
+            display: block;
+            width: 100%;
+            border: 0;
+            border-radius: var(--radius); /* el anillo de foco sigue la forma del video */
+            background: none;
+            color: inherit;
+            font: inherit;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+        }
+
+        /* ---------- Video expandido (lightbox) ---------- */
+        .lightbox {
+            --lb-width: 60vw;  /* ancho del video en escritorio */
+            --lb-dim: .75;     /* opacidad del fondo negro */
+            inset: 0;
+            width: auto;
+            height: auto;
+            max-width: none;
+            max-height: none;
+            margin: 0;
+            padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+            border: 0;
+            background: rgba(0, 0, 0, var(--lb-dim));
+            color: var(--text);
+            overflow: auto;
+            overscroll-behavior: contain;
+        }
+
+        .lightbox[open] {
+            display: grid;
+        }
+
+        .lightbox::backdrop {
+            background: transparent; /* el oscurecido lo da el propio .lightbox */
+        }
+
+        /* Bloquea el scroll de la página mientras el video está abierto, sin que el contenido "salte" */
+        html:has(.lightbox[open]) {
+            overflow: hidden;
+            scrollbar-gutter: stable;
+        }
+
+        .lightbox__stage {
+            margin: auto; /* centra en ambos ejes y, si no cabe, deja hacer scroll */
+            /* Nunca más ancho que --lb-width ni más alto que la pantalla (reserva 10rem para el texto) */
+            width: min(var(--lb-width), calc((100vh - 10rem) * 16 / 9));
+            width: min(var(--lb-width), calc((100svh - 10rem) * 16 / 9));
+        }
+
+        .lightbox__video {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            object-fit: contain;
+            background: #000;
+            border-radius: var(--radius);
+            transform-origin: 0 0; /* la animación de expansión parte de la esquina */
+        }
+
+        /* Variante sin texto (Demo Reel): video centrado cubriendo el 85% de la pantalla */
+        .lightbox--plain .lightbox__stage {
+            width: min(85vw, calc(85vh * 16 / 9));
+            width: min(85vw, calc(85svh * 16 / 9));
+        }
+
+        .lightbox--plain .lightbox__info { display: none; }
+
+        .lightbox__info {
+            margin-top: 1.25rem;
+            padding-inline: .5rem;
+            text-align: center;
+            text-wrap: balance;
+        }
+
+        .lightbox__info p {
+            font-size: clamp(.95rem, 1.5vw, 1.125rem);
+            font-weight: 300;
+            opacity: .8;
+        }
+
+        .lightbox__info p:first-child {
+            font-size: clamp(1.1rem, 2.2vw, 1.5rem);
+            font-weight: 400;
+            opacity: 1;
+        }
+
+        .lightbox__close {
+            position: fixed;
+            top: max(.75rem, env(safe-area-inset-top));
+            right: max(.75rem, env(safe-area-inset-right));
+            display: grid;
+            place-items: center;
+            width: 44px;
+            height: 44px;
+            border: 0;
+            border-radius: 50%;
+            background: transparent;
+            color: var(--text);
+            cursor: pointer;
+            transition: background-color .2s, transform .2s;
+        }
+
+        .lightbox__close:hover,
+        .lightbox__close:focus-visible {
+            background: rgba(255, 255, 255, .15);
+            transform: scale(1.1);
+        }
+
+        /* ---------- Contacto ---------- */
+        .contact {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: .5rem 2rem;
+            padding: clamp(2.5rem, 6vw, 4rem) 1rem calc(clamp(2.5rem, 6vw, 4rem) + env(safe-area-inset-bottom));
+            font-size: clamp(1rem, 2.2vw, 1.5rem);
+            font-style: normal;
+            font-weight: 300;
+            text-align: center;
+        }
+
+        .contact a {
+            color: inherit;
+            text-decoration: none;
+            border-bottom: 1px solid rgba(255, 255, 255, .3);
+        }
+
+        .contact a:hover,
+        .contact a:focus-visible {
+            border-bottom-color: var(--text);
+        }
+
+        /* ---------- Responsive ---------- */
+        @media (max-width: 860px) {
+            .about { grid-template-columns: 1fr; }
+            .lightbox { --lb-width: 92vw; } /* en móvil, 60% quedaría demasiado pequeño */
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            .hero__content { animation: none; }
+            * { transition: none !important; }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="hero">
+        <video class="hero__video" src="videos/1.mp4" autoplay muted loop playsinline aria-hidden="true" tabindex="-1"></video>
+
+        <div class="hero__content">
+            <h1>Martín Cerdá Diez</h1>
+            <p class="subtitle">VFX Artist · CGI Generalist · Motion Designer</p>
+            <nav class="social" aria-label="Social links">
+
+                <a href="mailto:martincerdadiez@gmail.com" target="_blank" rel="noopener noreferrer" aria-label="email">
+                    <img src="icons/e.png" alt="" width="24" height="24" decoding="async"></a>
+
+                <a href="https://wa.me/5215656860795" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+                    <img src="icons/a.png" alt="" width="24" height="24" decoding="async"></a>
+
+                <a href="https://www.linkedin.com/in/martincdiez" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                    <img src="icons/b.png" alt="" width="24" height="24" decoding="async"></a>
+
+                <a href="https://www.instagram.com/martindiezz/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                    <img src="icons/c.png" alt="" width="24" height="24" decoding="async"></a>
+
+            </nav>
+        </div>
+
+        <p class="hero__tag">PORTFOLIO ↓</p>
+    </header>
+
+    <main>
+        <!-- Panel gris: About Me + Demo Reel -->
+        <div class="panel">
+            <section class="about" aria-labelledby="about-title">
+                <div class="about__video is-paused" id="about-video">
+                    <iframe id="about-player"
+                        src="https://player.vimeo.com/video/1235172623?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&amp;title=0&amp;byline=0&amp;portrait=0&amp;controls=0&amp;dnt=1"
+                        title="Martin Cerdá Diez | Demo Reel" loading="lazy"
+                        allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+                    <div class="about__video-click" aria-hidden="true"></div>
+
+                    <div class="about__controls">
+                        <button class="about__btn" type="button" data-action="play" data-state="paused" aria-label="Play">
+                            <svg class="ico-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
+                            <svg class="ico-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h4v14H6zm8 0h4v14h-4z" /></svg>
+                        </button>
+                        <button class="about__btn" type="button" data-action="mute" data-state="on" aria-label="Mute">
+                            <svg class="ico-sound" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4z" /></svg>
+                            <svg class="ico-muted" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9v6h4l5 5V4L7 9H3z" /><path d="M16 9.5l5 5m0-5l-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" /></svg>
+                        </button>
+                    </div>
+                </div>
+                <div class="about__text">
+                    <h2 id="about-title">About Me</h2>
+                    <p>VFX artist and CG/3D Motion Designer with over 10 years of experience working on commercials, music videos, films, and online content. I specialize in the creation and compositing of motion graphics, visual effects, the generation and direction of CGI/AI, and integration into live-action footage and CG compositions. I work with clients in the US, Latin America, and Europe as a freelance specialist, either remotely or on-site, taking projects from asset creation through to compositing as well as integrating into a production's pipeline.</p>
+                </div>
+            </section>
+
+            <h2 class="section-title">DEMO REEL</h2>
+            <section aria-label="Demo reel videos">
+                <div class="grid">
+                    <!-- Miniatura = *prev.mp4; al expandir se abre el video completo (data-full-src).
+                         Sin .card__details: el video expandido se muestra solo, centrado y al 85% de la pantalla -->
+                    <article class="card" data-full-src="videos/motion.mp4" data-label="Motion Design - CG / 3D Animation">
+                        <h3 class="card__heading">MOTION DESIGN - CG / 3D ANIMATION</h3>
+                        <button class="card__open" type="button" aria-label="Expand Motion Design reel video">
+                            <video src="videos/motionprev.mp4" muted loop playsinline preload="metadata"></video>
+                        </button>
+                    </article>
+                    <article class="card" data-full-src="videos/vfx.mp4" data-label="VFX - CGI - Compositing">
+                        <h3 class="card__heading">VFX - CGI - COMPOSITING</h3>
+                        <button class="card__open" type="button" aria-label="Expand VFX reel video">
+                            <video src="videos/vfxprev.mp4" muted loop playsinline preload="metadata"></video>
+                        </button>
+                    </article>
+                </div>
+            </section>
+        </div>
+
+        <h2 class="section-title">Featured Projects</h2>
+        <section aria-labelledby="g-commercials">
+            <h3 class="group-title" id="g-commercials">Commercials</h3>
+            <div class="grid">
+                <article class="card" data-full-src="videos/commercials/1A.mp4">
+                    <button class="card__open" type="button" aria-label="Expand Pizza Hut video">
+                        <video src="videos/commercials/1.mp4" muted loop playsinline preload="metadata"></video>
+                    </button>
+                    <a class="card__link" href="https://www.pizzahut.com/" target="_blank" rel="noopener noreferrer">Pizza Hut</a>
+                    <!-- Texto que aparece debajo del video expandido -->
+                    <div class="card__details" hidden>
+                        <p>Pizza Hut - My Box | 2024</p>
+                        <p>Prod: Gato.tv | Post: TUCO</p>
+                        <p>Motion Motion graphics design and compositing, post-production assistant</p>
+                    </div>
+                </article>
+                <article class="card" data-full-src="videos/commercials/2A.mp4">
+                    <button class="card__open" type="button" aria-label="Expand Adidas video">
+                        <video src="videos/commercials/2.mp4" muted loop playsinline preload="metadata"></video>
+                    </button>
+                    <a class="card__link" href="https://www.adidas.com/" target="_blank" rel="noopener noreferrer">adidas</a>
+                    <!-- Texto que aparece debajo del video expandido -->
+                    <div class="card__details" hidden>
+                        <p>adidas - Metalbone | 2025</p>
+                        <p>Prod: Hittch Media | Post: TUCO</p>
+                        <p>CGI CG Motion design, animated graphics design and compositing.</p>
+                    </div>
+                </article>
+                <article class="card" data-full-src="videos/commercials/3A.mp4">
+                    <button class="card__open" type="button" aria-label="Expand Essence video">
+                        <video src="videos/commercials/3.mp4" muted loop playsinline preload="metadata"></video>
+                    </button>
+                    <a class="card__link" href="https://www.essencefestival.com/" target="_blank" rel="noopener noreferrer">ESSENCE Festival of Culture® 2025</a>
+                    <!-- Texto que aparece debajo del video expandido -->
+                    <div class="card__details" hidden>
+                        <p>ESSENCE Festival of Culture® 2025 | 2025</p>
+                        <p>Prod: Hittch Media | Post: TUCO</p>
+                        <p>VFX, chroma key, compositing, post-production assistant</p>
+                    </div>
+                </article>
+                <article class="card" data-full-src="videos/commercials/4A.mp4">
+                    <button class="card__open" type="button" aria-label="Expand Pringles video">
+                        <video src="videos/commercials/4.mp4" muted loop playsinline preload="metadata"></video>
+                    </button>
+                    <a class="card__link" href="https://www.pringles.com/" target="_blank" rel="noopener noreferrer">Pringles</a>
+                    <!-- Texto que aparece debajo del video expandido -->
+                    <div class="card__details" hidden>
+                        <p>Pringles Diamond | 2024</p>
+                        <p>Prod: Gato.tv | Post: TUCO</p>
+                        <p>Motion graphics design, cleanups and compositing.</p>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+
+        <section aria-labelledby="g-short">
+            <h3 class="group-title" id="g-short">Short Films</h3>
+            <div class="grid">
+                <article class="card">
+                    <video src="videos/BIOSUITS_.mp4" muted loop playsinline preload="metadata"></video>
+                    <!-- TODO: cuando haya enlace, cambiar <p> por <a class="card__link" href="..." target="_blank" rel="noopener noreferrer"> -->
+                    <p class="card__caption">Biosuits</p>
+                </article>
+                <article class="card">
+                    <video src="videos/killbag.mp4" muted loop playsinline preload="metadata"></video>
+                    <p class="card__caption">Kill Bag</p>
+                </article>
+            </div>
+        </section>
+
+        <section aria-labelledby="g-music">
+            <h3 class="group-title" id="g-music">Music Videos</h3>
+            <div class="grid">
+                <article class="card">
+                    <video src="videos/tiffany.mp4" muted loop playsinline preload="metadata"></video>
+                    <a class="card__link" href="https://www.youtube.com/watch?v=OSFJO9Qp5x8" target="_blank" rel="noopener noreferrer">Tiffany Stringer</a>
+                </article>
+                <article class="card">
+                    <video src="videos/matisse.mp4" muted loop playsinline preload="metadata"></video>
+                    <a class="card__link" href="https://www.youtube.com/watch?v=4Zpw5wCGTDo" target="_blank" rel="noopener noreferrer">Matisse</a>
+                </article>
+            </div>
+        </section>
+
+
+        <section aria-labelledby="g-social">
+            <h3 class="group-title" id="g-social">Social Media</h3>
+            <div class="grid">
+                <article class="card">
+                    <video src="videos/somosoro.mp4" muted loop playsinline preload="metadata"></video>
+                    <a class="card__link" href="https://www.instagram.com/reels/DBB67OwID4g/" target="_blank" rel="noopener noreferrer">Somos Oro</a>
+                </article>
+                <article class="card">
+                    <video src="videos/complexcon.mp4" muted loop playsinline preload="metadata"></video>
+                    <a class="card__link" href="https://www.complexcon.com/" target="_blank" rel="noopener noreferrer">ComplexCon</a>
+                </article>
+                <article class="card">
+                    <video src="videos/chubbies.mp4" muted loop playsinline preload="metadata"></video>
+                    <a class="card__link" href="https://www.instagram.com/gkittle/reel/DQKmcLpDpZi/" target="_blank" rel="noopener noreferrer">Chubbies</a>
+                </article>
+                <article class="card">
+                    <video src="videos/4.mp4" muted loop playsinline preload="metadata"></video>
+                    <a class="card__link" href="https://www.bahidora.com/" target="_blank" rel="noopener noreferrer">Bahidora</a>
+                </article>
+            </div>
+        </section>
+        <section aria-labelledby="g-realestate">
+            <h3 class="group-title" id="g-realestate">Real Estate</h3>
+            <div class="grid">
+                <article class="card">
+                    <video src="videos/moderno_.mp4" muted loop playsinline preload="metadata"></video>
+                    <a class="card__link" href="http://www.modernodev.com/" target="_blank" rel="noopener noreferrer">Moderno</a>
+                </article>
+                <article class="card">
+                    <video src="videos/edgehouse.mp4" muted loop playsinline preload="metadata"></video>
+                    <a class="card__link" href="https://edgehousemiami.com/" target="_blank" rel="noopener noreferrer">Edge House Miami</a>
+                </article>
+            </div>
+        </section>
+
+
+    </main>
+
+    <footer>
+        <address class="contact">
+            <a href="tel:+5215656860795">+52 1 5656860795</a>
+            <a href="mailto:martincerdadiez@gmail.com">martincerdadiez@gmail.com</a>
+        </address>
+    </footer>
+
+    <!-- Video expandido: se llena desde la tarjeta que se toca (data-full-src + .card__details) -->
+    <dialog class="lightbox" id="lightbox" aria-label="Expanded video">
+        <button class="lightbox__close" type="button" aria-label="Close video">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
+                <path d="M6 6l12 12M18 6L6 18" />
+            </svg>
+        </button>
+        <figure class="lightbox__stage">
+            <video class="lightbox__video" controls playsinline></video>
+            <figcaption class="lightbox__info"></figcaption>
+        </figure>
+    </dialog>
+
+    <script>
+        // Los videos solo se reproducen mientras se ven en pantalla (ahorra CPU, batería y datos).
+        const videos = document.querySelectorAll('video:not(.lightbox__video)');
+        const play = v => v.play().catch(() => {});
+
+        // Diagnóstico: en la consola (F12) aparece el archivo exacto que no se pudo cargar.
+        videos.forEach(v => v.addEventListener('error', () => console.warn('Video no disponible:', v.currentSrc || v.src), true));
+
+        if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            // Sin autoplay: los videos de proyectos muestran controles para poder verlos manualmente.
+            videos.forEach(v => {
+                v.removeAttribute('autoplay');
+                v.pause();
+                v.controls = !v.classList.contains('hero__video') && !v.closest('.card__open');
+            });
+        } else if ('IntersectionObserver' in window) {
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(({ target, isIntersecting }) => isIntersecting ? play(target) : target.pause());
+            }, { threshold: 0.35 });
+            videos.forEach(v => observer.observe(v));
+        } else {
+            videos.forEach(play);
+        }
+
+        // ---------- Video expandido (lightbox) ----------
+        // Cada tarjeta con data-full-src + .card__details y un .card__open se expande al hacer click.
+        const lightbox = document.getElementById('lightbox');
+
+        if (lightbox && typeof lightbox.showModal === 'function') {
+            const player = lightbox.querySelector('.lightbox__video');
+            const info = lightbox.querySelector('.lightbox__info');
+            const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)');
+            const EASE = 'cubic-bezier(.2, .8, .2, 1)';
+            let thumb = null;       // miniatura de la que se abrió (para volver a ella al cerrar)
+            let running = [];       // animaciones en curso
+            let closing = false;
+            let pressedOnBackdrop = false;
+
+            player.addEventListener('error', () => player.getAttribute('src') && console.warn('Video no disponible:', player.currentSrc || player.src));
+
+            const animate = (el, keyframes, options) => {
+                const a = el.animate(keyframes, options);
+                running.push(a);
+                return a.finished.catch(() => {});
+            };
+
+            const clearAnimations = () => {
+                running.forEach(a => a.cancel());
+                running = [];
+            };
+
+            // Transformación que hace coincidir el video grande con la posición/tamaño de la miniatura
+            const toThumb = (big, small) =>
+                `translate(${small.left - big.left}px, ${small.top - big.top}px) scale(${small.width / big.width}, ${small.height / big.height})`;
+
+            const openLightbox = trigger => {
+                if (lightbox.open) return;
+                const card = trigger.closest('.card');
+                const details = card.querySelector('.card__details');
+                thumb = trigger.querySelector('video');
+
+                // Con texto (.card__details) se muestra debajo; sin texto, el video va solo, centrado y al 85%
+                lightbox.classList.toggle('lightbox--plain', !details);
+                info.replaceChildren(...(details ? details.cloneNode(true).children : []));
+                lightbox.setAttribute('aria-label', details ? details.firstElementChild.textContent : (card.dataset.label || 'Expanded video'));
+                player.src = card.dataset.fullSrc;
+                thumb.pause(); // evita dos videos reproduciéndose a la vez
+
+                lightbox.showModal();
+                play(player); // el click cuenta como interacción, así que puede reproducirse con sonido
+
+                if (reduceMotion.matches) return;
+                const small = thumb.getBoundingClientRect();
+                const big = player.getBoundingClientRect();
+                animate(player, [{ transform: toThumb(big, small) }, { transform: 'none' }], { duration: 450, easing: EASE });
+                animate(lightbox, [{ opacity: 0 }, { opacity: 1 }], { duration: 300, easing: 'ease-out' });
+                animate(info, [{ opacity: 0 }, { opacity: 1 }], { duration: 300, delay: 200, easing: 'ease-out', fill: 'backwards' });
+            };
+
+            const closeLightbox = async () => {
+                if (closing || !lightbox.open) return;
+                closing = true;
+                player.pause();
+
+                if (!reduceMotion.matches && thumb && thumb.isConnected) {
+                    clearAnimations();
+                    const big = player.getBoundingClientRect();
+                    const small = thumb.getBoundingClientRect();
+                    const out = { duration: 350, easing: EASE, fill: 'forwards' };
+                    await Promise.all([
+                        animate(player, [{ transform: 'none' }, { transform: toThumb(big, small) }], out),
+                        animate(lightbox, [{ opacity: 1 }, { opacity: 0 }], { ...out, easing: 'ease-in' }),
+                        animate(info, [{ opacity: 1 }, { opacity: 0 }], { ...out, duration: 150 })
+                    ]);
+                }
+                lightbox.close();
+            };
+
+            // Se dispara siempre que se cierra (botón, Esc, fondo...): limpia y libera el video grande
+            lightbox.addEventListener('close', () => {
+                clearAnimations();
+                player.removeAttribute('src');
+                player.load();
+                info.replaceChildren();
+                lightbox.classList.remove('lightbox--plain');
+                closing = false;
+                if (thumb && !reduceMotion.matches) play(thumb);
+            });
+
+            // Esc: pasa por closeLightbox para que se vea la animación de cierre
+            lightbox.addEventListener('cancel', e => {
+                e.preventDefault();
+                closeLightbox();
+            });
+
+            lightbox.querySelector('.lightbox__close').addEventListener('click', closeLightbox);
+
+            // Click fuera del video cierra, pero no si el gesto empezó dentro (p. ej. arrastrar la barra de progreso)
+            lightbox.addEventListener('pointerdown', e => { pressedOnBackdrop = e.target === lightbox; });
+            lightbox.addEventListener('click', e => {
+                if (e.target === lightbox && pressedOnBackdrop) closeLightbox();
+            });
+
+            document.querySelectorAll('.card__open').forEach(btn => btn.addEventListener('click', () => openLightbox(btn)));
+        }
+    </script>
+
+    <!-- Demo reel de la sección About: controles propios (solo play/pausa y audio) sobre el player de Vimeo -->
+    <script src="https://player.vimeo.com/api/player.js"></script>
+    <script>
+        (() => {
+            const box = document.getElementById('about-video');
+            const iframe = document.getElementById('about-player');
+            if (!box || !iframe) return;
+
+            // Si la API de Vimeo no carga (bloqueador, sin red...), se vuelve a los controles nativos
+            // para que el video siga pudiendo reproducirse.
+            if (!window.Vimeo) {
+                iframe.src = iframe.src.replace('controls=0', 'controls=1');
+                box.querySelector('.about__video-click').hidden = true;
+                box.querySelector('.about__controls').hidden = true;
+                return;
+            }
+
+            const vimeo = new Vimeo.Player(iframe);
+            const playBtn = box.querySelector('[data-action="play"]');
+            const muteBtn = box.querySelector('[data-action="mute"]');
+
+            const setPlaying = playing => {
+                playBtn.dataset.state = playing ? 'playing' : 'paused';
+                playBtn.setAttribute('aria-label', playing ? 'Pause' : 'Play');
+                box.classList.toggle('is-paused', !playing);
+            };
+
+            const setMuted = muted => {
+                muteBtn.dataset.state = muted ? 'muted' : 'on';
+                muteBtn.setAttribute('aria-label', muted ? 'Unmute' : 'Mute');
+            };
+
+            const togglePlay = async () => (await vimeo.getPaused()) ? vimeo.play() : vimeo.pause();
+
+            vimeo.on('play', () => setPlaying(true));
+            vimeo.on('pause', () => setPlaying(false));
+            vimeo.on('ended', () => setPlaying(false));
+            vimeo.ready().then(() => vimeo.getMuted()).then(setMuted).catch(() => {});
+
+            playBtn.addEventListener('click', togglePlay);
+            box.querySelector('.about__video-click').addEventListener('click', togglePlay);
+
+            muteBtn.addEventListener('click', async () => {
+                const muted = !(await vimeo.getMuted());
+                await vimeo.setMuted(muted);
+                setMuted(muted);
+            });
+        })();
+    </script>
+</body>
+
+</html>
